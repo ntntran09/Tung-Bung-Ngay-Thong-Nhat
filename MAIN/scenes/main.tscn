@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://l6oa5gn8j17i"]
+[gd_scene format=3 uid="uid://l6oa5gn8j17i"]
 
 [ext_resource type="Script" uid="uid://bth2glfw0bigc" path="res://MAIN/script/main.gd" id="1_3crhg"]
 [ext_resource type="Texture2D" uid="uid://dgqge3sd07pt0" path="res://MAIN/assets/map/ground/ground_map.png" id="1_85g3d"]
@@ -52,206 +52,206 @@ tonemap_mode = 3
 glow_enabled = true
 glow_intensity = 0.2
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D" type="Node3D" unique_id=1277151761]
 script = ExtResource("1_3crhg")
 
-[node name="PatrolPoints" type="Node3D" parent="."]
+[node name="PatrolPoints" type="Node3D" parent="." unique_id=919763970]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.993405, -0.695913, 62)
 
-[node name="Node3D" type="Node3D" parent="PatrolPoints"]
+[node name="Node3D" type="Node3D" parent="PatrolPoints" unique_id=1602851765]
 
-[node name="Node3D3" type="Node3D" parent="PatrolPoints"]
+[node name="Node3D3" type="Node3D" parent="PatrolPoints" unique_id=520120425]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.16753, 0, -12.2924)
 
-[node name="Node3D4" type="Node3D" parent="PatrolPoints"]
+[node name="Node3D4" type="Node3D" parent="PatrolPoints" unique_id=1055444521]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.979213, 0, -20.4447)
 
-[node name="Node3D6" type="Node3D" parent="PatrolPoints"]
+[node name="Node3D6" type="Node3D" parent="PatrolPoints" unique_id=2005348393]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7685, 0, -37.1035)
 
-[node name="Node3D7" type="Node3D" parent="PatrolPoints"]
+[node name="Node3D7" type="Node3D" parent="PatrolPoints" unique_id=1773366206]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.60587, 0, -43.5764)
 
-[node name="Node3D9" type="Node3D" parent="PatrolPoints"]
+[node name="Node3D9" type="Node3D" parent="PatrolPoints" unique_id=287663644]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.3263, 0, -45.4033)
 
-[node name="Node3D11" type="Node3D" parent="PatrolPoints"]
+[node name="Node3D11" type="Node3D" parent="PatrolPoints" unique_id=642990281]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.6602, 0, -42.1042)
 
-[node name="Node3D13" type="Node3D" parent="PatrolPoints"]
+[node name="Node3D13" type="Node3D" parent="PatrolPoints" unique_id=1931978454]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.9268, 0, -34.4506)
 
-[node name="Node3D14" type="Node3D" parent="PatrolPoints"]
+[node name="Node3D14" type="Node3D" parent="PatrolPoints" unique_id=153588138]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.9934, 0, -24.0645)
 
-[node name="Node3D17" type="Node3D" parent="PatrolPoints"]
+[node name="Node3D17" type="Node3D" parent="PatrolPoints" unique_id=1940674048]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.46279, 0.879097, -17.2075)
 
-[node name="Node3D18" type="Node3D" parent="PatrolPoints"]
+[node name="Node3D18" type="Node3D" parent="PatrolPoints" unique_id=1375935962]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.84142, 0.879097, -24.1152)
 
-[node name="Node3D20" type="Node3D" parent="PatrolPoints"]
+[node name="Node3D20" type="Node3D" parent="PatrolPoints" unique_id=1470708021]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0616, 0.879097, -31.1719)
 
-[node name="Node3D21" type="Node3D" parent="PatrolPoints"]
+[node name="Node3D21" type="Node3D" parent="PatrolPoints" unique_id=1063893948]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.2613, 0.879097, -37.2471)
 
-[node name="Colison" type="Node3D" parent="."]
+[node name="Colison" type="Node3D" parent="." unique_id=1750091966]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.993405, -0.695913, 62)
 
-[node name="RigidBody3D" type="StaticBody3D" parent="Colison"]
+[node name="RigidBody3D" type="StaticBody3D" parent="Colison" unique_id=1830877503]
 transform = Transform3D(0.333333, 0, 0, 0, 0.333333, 0, 0, 0, 0.333333, 0.331135, 0.231971, -20.6667)
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="Colison/RigidBody3D"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Colison/RigidBody3D" unique_id=524593009]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.152313, 9.07245, -101.877)
 shape = SubResource("BoxShape3D_2gu8n")
 
-[node name="RigidBody3D4" type="StaticBody3D" parent="Colison"]
+[node name="RigidBody3D4" type="StaticBody3D" parent="Colison" unique_id=738112571]
 transform = Transform3D(0.333333, 0, 0, 0, 0.333333, 0, 0, 0, 0.333333, 0.331135, 0.231971, -20.6667)
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Colison/RigidBody3D4"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Colison/RigidBody3D4" unique_id=1204794533]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 87.1736, 9.07245, 3.82031)
 shape = SubResource("BoxShape3D_2gu8n")
 
-[node name="RigidBody3D3" type="StaticBody3D" parent="Colison"]
+[node name="RigidBody3D3" type="StaticBody3D" parent="Colison" unique_id=1219022126]
 transform = Transform3D(0.333333, 0, 0, 0, 0.333333, 0, 0, 0, 0.333333, 0.331135, 0.231971, -20.6667)
 
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="Colison/RigidBody3D3"]
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Colison/RigidBody3D3" unique_id=1216599827]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -101.736, 9.07245, 6.60979)
 shape = SubResource("BoxShape3D_2gu8n")
 
-[node name="RigidBody3D2" type="StaticBody3D" parent="Colison"]
+[node name="RigidBody3D2" type="StaticBody3D" parent="Colison" unique_id=1533437609]
 transform = Transform3D(0.333333, 0, 0, 0, 0.333333, 0, 0, 0, 0.333333, 0.331135, 0.231971, -20.6667)
 
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="Colison/RigidBody3D2"]
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Colison/RigidBody3D2" unique_id=1201316623]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.44852, 8.10002, 124.73)
 shape = SubResource("BoxShape3D_2gu8n")
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=586812463]
 navigation_mesh = SubResource("NavigationMesh_ny3f3")
 
-[node name="CSGCombiner3D" type="CSGCombiner3D" parent="NavigationRegion3D"]
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="NavigationRegion3D" unique_id=1997266305]
 visible = false
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="NavigationRegion3D/CSGCombiner3D"]
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=1908637352]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.4867, 13.3086, -36.1036)
 radius = 35.0708
 height = 28.6172
 sides = 16
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=210252539]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.835, 12.6476, -41.5327)
 size = Vector3(10.6258, 26.2953, 49.0335)
 
-[node name="CSGBox3D13" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
+[node name="CSGBox3D13" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=1103579980]
 transform = Transform3D(0.651701, 0, 0.758476, 0, 1, 0, -0.758476, 0, 0.651701, 5.82051, 12.6476, -74.499)
 size = Vector3(13.7733, 26.2953, 38.4771)
 
-[node name="CSGBox3D14" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
+[node name="CSGBox3D14" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=295854645]
 transform = Transform3D(-0.0202793, 0, 0.999794, 0, 1, 0, -0.999794, 0, -0.0202793, -22.1287, 12.6476, -84.9773)
 size = Vector3(13.7733, 26.2953, 38.4771)
 
-[node name="CSGBox3D5" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
+[node name="CSGBox3D5" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=64262656]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.4316, 12.6476, 26.451)
 size = Vector3(13.7733, 26.2953, 38.4771)
 
-[node name="CSGBox3D11" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
+[node name="CSGBox3D11" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=71149134]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.4316, 12.6476, 62.39)
 size = Vector3(13.7733, 26.2953, 38.4771)
 
-[node name="CSGBox3D15" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
+[node name="CSGBox3D15" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=462059944]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.9252, 12.6476, 55.699)
 size = Vector3(13.7733, 26.2953, 38.4771)
 
-[node name="CSGBox3D16" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
+[node name="CSGBox3D16" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=437039000]
 transform = Transform3D(0.727749, 0, 0.685844, 0, 1, 0, -0.685844, 0, 0.727749, -29.29, 12.6476, 27.6671)
 size = Vector3(13.7733, 26.2953, 38.4771)
 
-[node name="CSGBox3D17" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
+[node name="CSGBox3D17" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=1406004903]
 transform = Transform3D(0.452544, 0, 0.891742, 0, 1, 0, -0.891742, 0, 0.452544, -56.8632, 12.6476, 8.934)
 size = Vector3(13.7733, 26.2953, 38.4771)
 
-[node name="CSGBox3D18" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
+[node name="CSGBox3D18" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=1081668088]
 transform = Transform3D(0.940021, 0, 0.341118, 0, 1, 0, -0.341118, 0, 0.940021, -83.1639, 12.6476, -15.545)
 size = Vector3(13.7733, 26.2953, 38.4771)
 
-[node name="CSGBox3D19" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
+[node name="CSGBox3D19" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=1930932394]
 transform = Transform3D(0.979053, 0, -0.203607, 0, 1, 0, 0.203607, 0, 0.979053, -85.1405, 12.6476, -51.392)
 size = Vector3(13.7733, 26.2953, 38.4771)
 
-[node name="CSGBox3D20" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
+[node name="CSGBox3D20" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=1043027792]
 transform = Transform3D(0.827385, 0, -0.561636, 0, 1, 0, 0.561636, 0, 0.827385, -75.644, 12.6476, -74.331)
 size = Vector3(13.7733, 26.2953, 38.4771)
 
-[node name="CSGBox3D21" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
+[node name="CSGBox3D21" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=54818526]
 transform = Transform3D(0.343201, 0, -0.939262, 0, 1, 0, 0.939262, 0, 0.343201, -57.7821, 12.6476, -81.5907)
 size = Vector3(13.7733, 26.2953, 38.4771)
 
-[node name="CSGBox3D12" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
+[node name="CSGBox3D12" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=85492112]
 transform = Transform3D(0.0560132, 0, -0.99843, 0, 1, 0, 0.99843, 0, 0.0560132, 0.600895, 12.6476, 73.3244)
 size = Vector3(13.7733, 26.2953, 38.4771)
 
-[node name="CSGBox3D6" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
+[node name="CSGBox3D6" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=899555105]
 transform = Transform3D(-0.597331, 0, 0.801995, 0, 1, 0, -0.801995, 0, -0.597331, 27.932, 12.6476, 1.42839)
 size = Vector3(13.7733, 26.2953, 38.4771)
 
-[node name="CSGBox3D7" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
+[node name="CSGBox3D7" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=1440020814]
 transform = Transform3D(-0.777991, 0, 0.628275, 0, 1, 0, -0.628275, 0, -0.777991, 55.0736, 12.6476, -21.0055)
 size = Vector3(13.7733, 26.2953, 38.4771)
 
-[node name="CSGBox3D8" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
+[node name="CSGBox3D8" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=434193521]
 transform = Transform3D(-0.971155, 0, 0.238449, 0, 1, 0, -0.238449, 0, -0.971155, 68.7181, 12.6476, -44.0931)
 size = Vector3(13.7733, 26.2953, 38.4771)
 
-[node name="CSGBox3D9" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
+[node name="CSGBox3D9" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=1914698114]
 transform = Transform3D(-0.999555, 0, 0.0298233, 0, 1, 0, -0.0298233, 0, -0.999555, 47.331, 12.6476, -63.5018)
 size = Vector3(13.7733, 26.2953, 38.4771)
 
-[node name="CSGBox3D10" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
+[node name="CSGBox3D10" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=1334818213]
 transform = Transform3D(0.423314, 0, 0.905983, 0, 1, 0, -0.905983, 0, 0.423314, 57.7715, 12.6476, -75.6899)
 size = Vector3(13.7733, 26.2953, 38.4771)
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
+[node name="CSGBox3D3" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=2144496433]
 transform = Transform3D(0.774216, 0, 0.632922, 0, 1, 0, -0.632922, 0, 0.774216, 34.9674, 11.6957, -38.9607)
 size = Vector3(34.4389, 28.0597, 16.7306)
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
+[node name="CSGBox3D4" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=1120572087]
 transform = Transform3D(0.999998, 0, -0.00188497, 0, 1, 0, 0.00188497, 0, 0.999998, -5.20073, 15.1148, -9.85088)
 size = Vector3(0.960205, 29.7597, 52.469)
 
-[node name="CSGBox3D22" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
+[node name="CSGBox3D22" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D" unique_id=1158835290]
 transform = Transform3D(0.679429, 0, 0.733742, 0, 1, 0, -0.733742, 0, 0.679429, -18.2136, 15.1148, 4.70369)
 size = Vector3(0.960205, 29.7597, 35.9721)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D"]
+[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D" unique_id=914532026]
 transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, -0.043, -15.1, 0.469)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(6.67291, 1, 7.95929)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=846782732]
 material_override = SubResource("StandardMaterial3D_odbco")
 mesh = SubResource("PlaneMesh_epype")
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("3_ya4ey")]
+[node name="CharacterBody3D" parent="." unique_id=2041024535 instance=ExtResource("3_ya4ey")]
 transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, -1.1095, 0.11708, 68.1118)
 pause_menu_path = NodePath("../Control")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2066383428]
 transform = Transform3D(-0.763354, 0.387946, -0.516516, -0.639406, -0.339978, 0.68962, 0.0919314, 0.856687, 0.507579, 0, 41.3453, 0)
 light_energy = 0.1
 shadow_enabled = true
 shadow_opacity = 0.85
 shadow_blur = 1.202
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1658608563]
 environment = SubResource("Environment_nboa3")
 
-[node name="Decoration" parent="." instance=ExtResource("5_trceg")]
+[node name="Decoration" parent="." unique_id=388462679 instance=ExtResource("5_trceg")]
 transform = Transform3D(-1.99966, 0, 0.0367514, 0, 2, 0, -0.0367514, 0, -1.99966, -35.6173, 0.035079, -66.9675)
 
-[node name="Npc" parent="." instance=ExtResource("6_a8y0u")]
+[node name="Npc" parent="." unique_id=1420549544 instance=ExtResource("6_a8y0u")]
 transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, -2.54515, 0.936355, 34.0169)
 collision_layer = 2
 collision_mask = 2
@@ -260,11 +260,11 @@ max_point_distance = 15.0
 input_file = "mo.txt"
 npc_name = "Mơ"
 
-[node name="Node3D" parent="." instance=ExtResource("7_jkv2x")]
+[node name="Node3D" parent="." unique_id=1881701429 instance=ExtResource("7_jkv2x")]
 transform = Transform3D(-26.5012, 0, 14.0601, 0, 30, 0, -14.0601, 0, -26.5012, -43.1654, 0, -4.7153)
 input_file = "o_an_q.txt"
 
-[node name="Npc2" parent="." instance=ExtResource("8_jbj1t")]
+[node name="Npc2" parent="." unique_id=460246478 instance=ExtResource("8_jbj1t")]
 transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, -70.3207, -0.1, -18.9456)
 collision_layer = 2
 collision_mask = 2
@@ -272,33 +272,33 @@ patrol_parent_path = NodePath("../PatrolPoints")
 input_file = "tu.txt"
 npc_name = "Tư"
 
-[node name="Control" parent="." instance=ExtResource("9_muem4")]
+[node name="Control" parent="." unique_id=855319882 instance=ExtResource("9_muem4")]
 process_mode = 3
 mouse_filter = 0
 
-[node name="Node3D2" parent="." instance=ExtResource("10_q704v")]
+[node name="Node3D2" parent="." unique_id=1279213552 instance=ExtResource("10_q704v")]
 transform = Transform3D(-5.6816, 0, -29.4571, 0, 30, 0, 29.4571, 0, -5.6816, -5.77956, 0, -3.1684)
 input_file = "noi_chu.txt"
 
-[node name="Node3D3" parent="." instance=ExtResource("11_wbhge")]
+[node name="Node3D3" parent="." unique_id=1462035144 instance=ExtResource("11_wbhge")]
 transform = Transform3D(-28.3856, 0, 9.7086, 0, 30, 0, -9.7086, 0, -28.3856, -19.6925, -0.100001, 3.31429)
 input_file = "co_ganh.txt"
 
-[node name="Node3D4" parent="." instance=ExtResource("12_0u2gu")]
+[node name="Node3D4" parent="." unique_id=735986293 instance=ExtResource("12_0u2gu")]
 transform = Transform3D(-23.4469, 0, -18.7147, 0, 30, 0, 18.7147, 0, -23.4469, 29.0438, -0.100008, -24.4748)
 
-[node name="Node3D5" type="Node3D" parent="."]
+[node name="Node3D5" type="Node3D" parent="." unique_id=114589141]
 script = ExtResource("13_8iw05")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Node3D5"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Node3D5" unique_id=855502288]
 stream = ExtResource("14_8iw05")
 autoplay = true
 
-[node name="Npc3" parent="." instance=ExtResource("17_3crhg")]
+[node name="Npc3" parent="." unique_id=937757033 instance=ExtResource("17_3crhg")]
 transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, 2.55148, -0.100008, -56.6906)
 patrol_parent_path = NodePath("../PatrolPoints")
 
-[node name="Npc4" parent="." instance=ExtResource("18_evthf")]
+[node name="Npc4" parent="." unique_id=797531034 instance=ExtResource("18_evthf")]
 transform = Transform3D(-13.9606, 0, 26.5538, 0, 30, 0, -26.5538, 0, -13.9606, 47.0688, -0.1, -29.1697)
 patrol_parent_path = NodePath("../PatrolPoints")
 input_file = "khai.txt"

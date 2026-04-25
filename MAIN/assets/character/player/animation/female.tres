@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=26 format=3 uid="uid://cg33xapcfsfqu"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://cg33xapcfsfqu"]
 
 [ext_resource type="Texture2D" uid="uid://diurcok1ue6fg" path="res://MAIN/assets/character/player/female.png" id="1_rah55"]
 

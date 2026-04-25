@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=8 format=3 uid="uid://b1k0t5mbt8vuo"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://b1k0t5mbt8vuo"]
 
 [ext_resource type="Texture2D" uid="uid://ujvnk0f5e37p" path="res://MAIN/assets/character/npc/npc_2.png" id="1_e7hcl"]
 
