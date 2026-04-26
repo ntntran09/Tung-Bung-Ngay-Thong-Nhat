@@ -33,34 +33,47 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="Control"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -768.0
-offset_right = 768.0
-offset_bottom = 1024.0
-grow_horizontal = 2
-texture = ExtResource("1_r67kn")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+[node name="MenuFrame" type="Control" parent="Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -44.0
-offset_top = -50.5
-offset_right = 44.0
-offset_bottom = 50.5
+offset_left = -768.0
+offset_top = -512.0
+offset_right = 768.0
+offset_bottom = 512.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/MenuFrame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_r67kn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MenuFrame"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -169.0
+offset_right = 225.0
+offset_bottom = 223.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_r67kn")
-theme_override_constants/separation = 53
+theme_override_constants/separation = 46
 
-[node name="ResumeButton" type="Button" parent="Control/VBoxContainer"]
+[node name="ResumeButton" type="Button" parent="Control/MenuFrame/VBoxContainer"]
 custom_minimum_size = Vector2(450, 100)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -76,12 +89,12 @@ theme_override_constants/outline_size = 0
 theme_override_constants/h_separation = 0
 theme_override_styles/hover = ExtResource("6_lpubu")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_brbbq")
-text = "Resume
-"
+text = "Resume"
 
-[node name="SkinOptionButton" type="OptionButton" parent="Control/VBoxContainer"]
-custom_minimum_size = Vector2(0, 100)
+[node name="SkinOptionButton" type="OptionButton" parent="Control/MenuFrame/VBoxContainer"]
+custom_minimum_size = Vector2(450, 100)
 layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("2_r67kn")
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
@@ -105,9 +118,10 @@ popup/item_0/id = 1
 popup/item_1/text = "Male"
 popup/item_1/id = 0
 
-[node name="QuitButton" type="Button" parent="Control/VBoxContainer"]
-custom_minimum_size = Vector2(0, 100)
+[node name="QuitButton" type="Button" parent="Control/MenuFrame/VBoxContainer"]
+custom_minimum_size = Vector2(450, 100)
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -119,10 +133,9 @@ theme_override_styles/hover_pressed = ExtResource("6_lpubu")
 theme_override_styles/hover = ExtResource("6_lpubu")
 theme_override_styles/pressed = ExtResource("6_lpubu")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_8n18e")
-text = "Quit
-"
+text = "Quit"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Control/MenuFrame"]
 position = Vector2(512, 752)
 scale = Vector2(10, 10)
 sprite_frames = ExtResource("3_lt2xq")

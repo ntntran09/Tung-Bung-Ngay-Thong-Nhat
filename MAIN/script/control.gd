@@ -1,11 +1,14 @@
 extends Control
 
+const MENU_FRAME_SIZE := Vector2(1536.0, 1024.0)
+
 @export var skins: Array[SpriteFrames]  # Assign your skin animations in the Inspector
 
-@onready var skin_option = $Control/VBoxContainer/SkinOptionButton
-@onready var resume_button = $Control/VBoxContainer/ResumeButton
-@onready var quit_button = $Control/VBoxContainer/QuitButton
-@onready var preview_sprite := $AnimatedSprite2D  # UI skin preview
+@onready var menu_frame: Control = $Control/MenuFrame
+@onready var skin_option: OptionButton = $Control/MenuFrame/VBoxContainer/SkinOptionButton
+@onready var resume_button: Button = $Control/MenuFrame/VBoxContainer/ResumeButton
+@onready var quit_button: Button = $Control/MenuFrame/VBoxContainer/QuitButton
+@onready var preview_sprite := $Control/MenuFrame/AnimatedSprite2D  # UI skin preview
 
 
 # These will be fetched dynamically
@@ -16,6 +19,9 @@ func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	visible = false
 	get_tree().paused = false
+	menu_frame.pivot_offset = MENU_FRAME_SIZE * 0.5
+	get_viewport().size_changed.connect(_update_menu_scale)
+	call_deferred("_update_menu_scale")
 
 
 	# Get player and their sprite
@@ -32,6 +38,17 @@ func _ready():
 
 	# Apply saved skin initially
 	apply_skin(GameData.selected_skin_index)
+
+func _update_menu_scale() -> void:
+	var viewport_size := get_viewport_rect().size
+	if viewport_size.x <= 0.0 or viewport_size.y <= 0.0:
+		return
+
+	var scale_factor: float = minf(
+		viewport_size.x / MENU_FRAME_SIZE.x,
+		viewport_size.y / MENU_FRAME_SIZE.y
+	)
+	menu_frame.scale = Vector2.ONE * scale_factor
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:

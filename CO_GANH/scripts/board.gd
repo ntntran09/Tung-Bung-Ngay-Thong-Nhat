@@ -11,6 +11,8 @@ const PIECE_SCENE = preload("res://CO_GANH/scenes/Piece.tscn")
 const DOT_RED = preload("res://CO_GANH/assets/sprites/red_dot.png")
 const DOT_BLUE = preload("res://CO_GANH/assets/sprites/blue_dot.png")
 
+const BOT_AVATAR_POSITION := Vector2(1333, 250)
+const BOT_NAME_LABEL_OFFSET := Vector2(-45, 95)
 
 var current_turn := "Lua"
 var selected_piece: Area2D = null
@@ -111,7 +113,7 @@ func show_bot_info(level: int):
 
 	bot_avatar.texture = load(avatar_path)
 	bot_avatar.scale = Vector2(2, 2)
-	bot_avatar.position = Vector2(1600, 300)
+	bot_avatar.position = BOT_AVATAR_POSITION
 	add_child(bot_avatar)
 
 	# Label tên bot
@@ -123,14 +125,14 @@ func show_bot_info(level: int):
 		5: "Tran"
 	}
 	var name = bot_names.get(level, "Unknown")
-	name_label.text = name + " (level" + str(level) + ")"
+	name_label.text = name + " (Level " + str(level) + ")"
 	name_label.set("theme_override_colors/font_color", Color.BLACK)
 	name_label.set("theme_override_font_sizes/font_size", 30)
 	var custom_font = preload("res://_SHARED ASSETS/font/SVN-Retron 2000.otf")
 	name_label.set("theme_override_fonts/font", custom_font)
 
 	add_child(name_label)
-	name_label.position = Vector2(1600 - name_label.size.x - 100, 300)
+	name_label.position = BOT_AVATAR_POSITION + BOT_NAME_LABEL_OFFSET
 
 
 func draw_board():

@@ -4,6 +4,7 @@ extends Control
 @onready var title: Label = $Label2
 @onready var choice_box: HBoxContainer = $ChoiceBox
 @onready var selector: TextureRect = $Selector
+@onready var press_e_icon: TextureRect = $TextureRect2
 @onready var buttons := [
 	$ChoiceBox/NoButton,
 	$ChoiceBox/AgainButton,
@@ -26,6 +27,7 @@ func _ready():
 
 	choice_box.visible = false
 	selector.visible = false
+	set_interact_hint_visible(false)
 	selector.z_index = 100  # ✅ Ensure it's above all buttons
 	visible = false
 	player = get_tree().get_first_node_in_group("player")
@@ -60,6 +62,7 @@ func start_dialogue():
 	visible = true
 	choice_box.visible = false
 	selector.visible = false
+	set_interact_hint_visible(true)
 	if lines.size() > 0:
 		title.text = lines[current_line]
 		current_line += 1
@@ -83,12 +86,14 @@ func advance():
 func show_line():
 	if current_line < lines.size():
 		label.text = lines[current_line]
+		set_interact_hint_visible(true)
 
 func show_choices():
 	print("Showing choices")
 	is_playing = false
 	choice_active = true
 	choice_box.visible = true
+	set_interact_hint_visible(false)
 
 	selected_index = 2
 	selector.visible = true
@@ -100,15 +105,23 @@ func update_selector_position():
 		print("❌ Invalid target button")
 		return
 
-	if selector.size == Vector2.ZERO and selector.texture:
-		selector.size = selector.texture.get_size()
+	var btn_rect: Rect2 = target_btn.get_global_rect()
+	var selector_size := selector.size
+	if selector_size == Vector2.ZERO:
+		selector_size = Vector2(48, 48)
 
-	var btn_pos = target_btn.get_global_rect().position
-	selector.global_position = Vector2(btn_pos.x - 50,  btn_pos.y + target_btn.size.y/2 + 20)
+	selector.global_position = Vector2(
+		btn_rect.position.x - selector_size.x - 14,
+		btn_rect.position.y + (btn_rect.size.y - selector_size.y) * 0.5 + 45.0
+	)
 	selector.visible = true
 
-	print("🎯 Button pos: ", btn_pos)
+	print("🎯 Button pos: ", btn_rect.position)
 	print("🎯 Selector pos: ", selector.global_position)
+
+func set_interact_hint_visible(is_visible: bool):
+	if is_instance_valid(press_e_icon):
+		press_e_icon.visible = is_visible
 
 
 
@@ -170,6 +183,7 @@ func finish():
 	selected_index = 2
 	choice_box.visible = false
 	selector.visible = false
+	set_interact_hint_visible(false)
 	label.text = ""
 	title.text = ""
 

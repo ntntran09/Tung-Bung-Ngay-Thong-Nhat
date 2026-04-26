@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://cg6pw00aq42yl"]
+[gd_scene format=4 uid="uid://cg6pw00aq42yl"]
 
 [ext_resource type="Script" uid="uid://cu2xvet0aygvj" path="res://CO_GANH/scripts/board.gd" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://dfnu7354brnr3" path="res://CO_GANH/scripts/bot_select_layer.gd" id="2_jscy8"]
@@ -27,11 +27,7 @@
 [ext_resource type="Script" uid="uid://qdoyx3ij6l1a" path="res://CO_GANH/scripts/point.gd" id="29_yq6so"]
 [ext_resource type="Texture2D" uid="uid://bhvtxunrdsfne" path="res://CO_GANH/assets/sprites/vic.png" id="30_fv21b"]
 [ext_resource type="Texture2D" uid="uid://be74h052ehr87" path="res://CO_GANH/assets/sprites/loss.png" id="31_tel4y"]
-[ext_resource type="Script" uid="uid://o2wnbq4jqpxn" path="res://MAIN/script/game_control.gd" id="32_ijtf4"]
-[ext_resource type="Texture2D" uid="uid://d04mex2btkvfd" path="res://MAIN/assets/ui/pause_icon.png" id="33_ojrv4"]
-[ext_resource type="Texture2D" uid="uid://bt527iaapnslo" path="res://MAIN/assets/ui/pause_screen_in_game.png" id="34_mui7k"]
-[ext_resource type="Theme" uid="uid://ccjbl02crsn70" path="res://MAIN/assets/control_theme.tres" id="35_r634c"]
-[ext_resource type="StyleBox" uid="uid://cjd00vb5wc7vg" path="res://MAIN/assets/control_hover.tres" id="36_2jwfa"]
+[ext_resource type="PackedScene" uid="uid://bghlte3la24n5" path="res://MAIN/scenes/ui/game_control.tscn" id="37_game_control"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sugp2"]
 texture = ExtResource("2_sugp2")
@@ -443,29 +439,25 @@ texture_region_size = Vector2i(64, 64)
 tile_size = Vector2i(64, 64)
 sources/3 = SubResource("TileSetAtlasSource_tbgi4")
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_brbbq"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8n18e"]
-
-[node name="Node" type="Node"]
+[node name="Node" type="Node" unique_id=1333516078]
 script = ExtResource("1_jyhfs")
-board_start_position = Vector2(155, 155)
+board_start_position = Vector2(260, 135)
 
-[node name="BotSelectLayer" type="CanvasLayer" parent="."]
+[node name="BotSelectLayer" type="CanvasLayer" parent="." unique_id=1683610438]
 layer = 10
-scale = Vector2(3, 3)
-transform = Transform2D(3, 0, 0, 3, 0, 0)
+scale = Vector2(2.5, 2.5)
+transform = Transform2D(2.5, 0, 0, 2.5, 0, 0)
 script = ExtResource("2_jscy8")
 
-[node name="Block" type="Control" parent="BotSelectLayer"]
-layout_mode = 3
+[node name="Block" type="ColorRect" parent="BotSelectLayer" unique_id=1325904468]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.956863, 0.752941, 0.490196, 1)
 
-[node name="Ava1" type="TextureButton" parent="BotSelectLayer"]
+[node name="Ava1" type="TextureButton" parent="BotSelectLayer" unique_id=1786931853]
 z_index = 5
 offset_left = -8.0
 offset_top = 63.0
@@ -474,7 +466,7 @@ offset_bottom = 146.0
 texture_normal = ExtResource("3_pm3ni")
 script = ExtResource("14_og1vs")
 
-[node name="Ava2" type="TextureButton" parent="BotSelectLayer"]
+[node name="Ava2" type="TextureButton" parent="BotSelectLayer" unique_id=217064753]
 offset_left = 256.0
 offset_top = 56.0
 offset_right = 384.0
@@ -483,7 +475,7 @@ texture_normal = ExtResource("4_jbj1t")
 flip_h = true
 script = ExtResource("14_og1vs")
 
-[node name="Ava3" type="TextureButton" parent="BotSelectLayer"]
+[node name="Ava3" type="TextureButton" parent="BotSelectLayer" unique_id=1768931709]
 offset_left = 496.0
 offset_top = 63.0
 offset_right = 624.0
@@ -492,7 +484,7 @@ texture_normal = ExtResource("7_y6deb")
 flip_h = true
 script = ExtResource("14_og1vs")
 
-[node name="Ava4" type="TextureButton" parent="BotSelectLayer"]
+[node name="Ava4" type="TextureButton" parent="BotSelectLayer" unique_id=1096759184]
 offset_left = 120.0
 offset_top = 168.0
 offset_right = 248.0
@@ -501,7 +493,7 @@ texture_normal = ExtResource("9_yc10j")
 flip_h = true
 script = ExtResource("14_og1vs")
 
-[node name="Ava5" type="TextureButton" parent="BotSelectLayer"]
+[node name="Ava5" type="TextureButton" parent="BotSelectLayer" unique_id=1689476612]
 offset_left = 384.0
 offset_top = 168.0
 offset_right = 512.0
@@ -510,7 +502,7 @@ texture_normal = ExtResource("6_0ld40")
 flip_h = true
 script = ExtResource("14_og1vs")
 
-[node name="BotDescription" type="Label" parent="BotSelectLayer"]
+[node name="BotDescription" type="Label" parent="BotSelectLayer" unique_id=880206775]
 offset_left = 240.0
 offset_top = 256.0
 offset_right = 280.0
@@ -518,7 +510,7 @@ offset_bottom = 279.0
 theme_override_fonts/font = ExtResource("12_y6deb")
 theme_override_font_sizes/font_size = 8
 
-[node name="ConfirmButton" type="TextureButton" parent="BotSelectLayer"]
+[node name="ConfirmButton" type="TextureButton" parent="BotSelectLayer" unique_id=1146626944]
 offset_left = 256.0
 offset_top = 288.0
 offset_right = 1280.0
@@ -528,7 +520,7 @@ disabled = true
 texture_normal = ExtResource("13_y6deb")
 script = ExtResource("14_og1vs")
 
-[node name="NhapNhay" type="Label" parent="BotSelectLayer"]
+[node name="NhapNhay" type="Label" parent="BotSelectLayer" unique_id=1575305444]
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 48.0
@@ -538,91 +530,91 @@ text = "- Chơi với bot (PVE)
 "
 script = ExtResource("4_a8y0u")
 
-[node name="main" type="Node2D" parent="."]
-position = Vector2(171, 182)
-scale = Vector2(3, 3)
+[node name="main" type="Node2D" parent="." unique_id=870097369]
+position = Vector2(260, 135)
+scale = Vector2(2, 2)
 
-[node name="Board" type="TileMapLayer" parent="main"]
+[node name="Board" type="TileMapLayer" parent="main" unique_id=933434971]
 z_index = 1
 use_parent_material = true
 tile_set = SubResource("TileSet_tbgi4")
 
-[node name="BG" type="TileMapLayer" parent="main"]
+[node name="BG" type="TileMapLayer" parent="main" unique_id=1556550657]
 position = Vector2(133, 65)
 scale = Vector2(1.58914, 3.25144)
-tile_map_data = PackedByteArray("AAAAAAAAAwAMAAgAAAAAAAEAAwALAAYAAAAAAAIAAwALAAYAAAAAAAMAAwALAAcAAAAAAAQAAwALAAgAAAABAAAAAwANAAgAAAABAAEAAwAMAAYAAAABAAIAAwAMAAYAAAABAAMAAwAMAAcAAAABAAQAAwAMAAgAAAACAAAAAwAMAAgAAAACAAEAAwANAAYAAAACAAIAAwALAAYAAAACAAMAAwALAAcAAAACAAQAAwALAAgAAAADAAAAAwANAAgAAAADAAEAAwALAAgAAAADAAIAAwALAAYAAAADAAQAAwALAAgAAAAEAAAAAwAMAAcAAAAEAAEAAwAMAAgAAAAEAAIAAwAMAAYAAAAEAAMAAwAMAAcAAAAEAAQAAwAMAAgAAAAFAAAAAwANAAcAAAAFAAEAAwANAAgAAAAFAAIAAwALAAYAAAAFAAMAAwALAAcAAAAFAAQAAwALAAgAAAAGAAAAAwALAAcAAAAGAAEAAwALAAgAAAAGAAIAAwALAAcAAAAGAAMAAwALAAgAAAAGAAQAAwAMAAgAAAAHAAAAAwAMAAcAAAAHAAEAAwAMAAgAAAAHAAIAAwAMAAcAAAAHAAMAAwAMAAgAAAAHAAQAAwALAAgAAAAIAAAAAwANAAcAAAAIAAEAAwANAAgAAAAIAAIAAwANAAcAAAAIAAMAAwANAAgAAAAIAAQAAwAMAAgAAAAJAAAAAwANAAgAAAAJAAEAAwAJAAMAAAAJAAIAAwANAAYAAAAJAAMAAwANAAcAAAAJAAQAAwANAAgAAAD+//7/AwAMAAYAAAD+////AwAMAAcAAAD+/wAAAwAMAAgAAAD+/wEAAwAMAAYAAAD+/wIAAwAMAAYAAAD///7/AwALAAYAAAD/////AwALAAcAAAD//wAAAwALAAgAAAD//wEAAwANAAYAAAD//wIAAwANAAYAAAAAAP7/AwAMAAYAAAAAAP//AwAMAAcAAAABAP7/AwANAAYAAAABAP//AwANAAcAAAACAP7/AwAMAAYAAAACAP//AwAMAAcAAAADAP7/AwANAAYAAAADAP//AwANAAcAAAAEAP7/AwALAAYAAAAEAP//AwAMAAYAAAAFAP7/AwAMAAYAAAAFAP//AwANAAYAAAAGAP7/AwANAAYAAAAGAP//AwALAAYAAAAHAP7/AwALAAYAAAAHAP//AwAMAAYAAAD9/wAAAwALAAgAAAD9/wEAAwALAAYAAAD9/wIAAwALAAYAAAD9/wMAAwALAAcAAAD9/wQAAwALAAgAAAD+/wMAAwAMAAcAAAD+/wQAAwAMAAgAAAD//wMAAwANAAcAAAD//wQAAwANAAgAAAD9//7/AwALAAYAAAD9////AwALAAcAAAAIAP7/AwAMAAYAAAAIAP//AwANAAYAAAAJAP7/AwANAAYAAAAJAP//AwANAAcAAAADAAMAAwALAAcAAAA=")
+tile_map_data = PackedByteArray("AAAAAAAAAwAMAAgAAAAAAAEAAwALAAYAAAAAAAIAAwALAAYAAAAAAAMAAwALAAcAAAAAAAQAAwALAAgAAAABAAAAAwANAAgAAAABAAEAAwAMAAYAAAABAAIAAwAMAAYAAAABAAMAAwAMAAcAAAABAAQAAwAMAAgAAAAFAAAAAwANAAcAAAAFAAEAAwANAAgAAAAFAAIAAwALAAYAAAAFAAMAAwALAAcAAAAFAAQAAwALAAgAAAAGAAAAAwALAAcAAAAGAAEAAwALAAgAAAAGAAIAAwALAAcAAAAGAAMAAwALAAgAAAAGAAQAAwAMAAgAAAAHAAAAAwAMAAcAAAAHAAEAAwAMAAgAAAAHAAIAAwAMAAcAAAAHAAMAAwAMAAgAAAAHAAQAAwALAAgAAAAIAAAAAwANAAcAAAAIAAEAAwANAAgAAAAIAAIAAwANAAcAAAAIAAMAAwANAAgAAAAIAAQAAwAMAAgAAAAJAAAAAwANAAgAAAAJAAEAAwAJAAMAAAAJAAIAAwANAAYAAAAJAAMAAwANAAcAAAAJAAQAAwANAAgAAAD+//7/AwAMAAYAAAD+////AwAMAAcAAAD+/wAAAwAMAAgAAAD+/wEAAwAMAAYAAAD+/wIAAwAMAAYAAAD///7/AwALAAYAAAD/////AwALAAcAAAD//wAAAwALAAgAAAD//wEAAwANAAYAAAD//wIAAwANAAYAAAAAAP7/AwAMAAYAAAAAAP//AwAMAAcAAAABAP7/AwANAAYAAAABAP//AwANAAcAAAACAP7/AwAMAAYAAAAFAP7/AwAMAAYAAAAFAP//AwANAAYAAAAGAP7/AwANAAYAAAAGAP//AwALAAYAAAAHAP7/AwALAAYAAAAHAP//AwAMAAYAAAD9/wAAAwALAAgAAAD9/wEAAwALAAYAAAD9/wIAAwALAAYAAAD9/wMAAwALAAcAAAD9/wQAAwALAAgAAAD+/wMAAwAMAAcAAAD+/wQAAwAMAAgAAAD//wMAAwANAAcAAAD//wQAAwANAAgAAAD9//7/AwALAAYAAAD9////AwALAAcAAAAIAP7/AwAMAAYAAAAIAP//AwANAAYAAAAJAP7/AwANAAYAAAAJAP//AwANAAcAAAADAAMAAwALAAcAAAA=")
 tile_set = SubResource("TileSet_o6xl0")
 
-[node name="Pieces" type="Node2D" parent="main"]
+[node name="Pieces" type="Node2D" parent="main" unique_id=938656911]
 z_index = 1
 script = ExtResource("3_sugp2")
 
-[node name="move_hint" type="Node2D" parent="main"]
+[node name="move_hint" type="Node2D" parent="main" unique_id=1963160124]
 z_index = 3
 
-[node name="moved_dot" type="Node2D" parent="main"]
+[node name="moved_dot" type="Node2D" parent="main" unique_id=1358649317]
 
-[node name="Audio" type="Node2D" parent="main"]
+[node name="Audio" type="Node2D" parent="main" unique_id=507778769]
 
-[node name="click" type="AudioStreamPlayer2D" parent="main/Audio"]
+[node name="click" type="AudioStreamPlayer2D" parent="main/Audio" unique_id=1578265955]
 stream = ExtResource("10_choun")
 volume_db = -3.0
 
-[node name="move" type="AudioStreamPlayer2D" parent="main/Audio"]
+[node name="move" type="AudioStreamPlayer2D" parent="main/Audio" unique_id=997029001]
 stream = ExtResource("7_ya4ey")
 volume_db = 5.0
 
-[node name="ganh" type="AudioStreamPlayer2D" parent="main/Audio"]
+[node name="ganh" type="AudioStreamPlayer2D" parent="main/Audio" unique_id=1746637076]
 stream = ExtResource("6_choun")
 volume_db = 5.0
 
-[node name="vay" type="AudioStreamPlayer2D" parent="main/Audio"]
+[node name="vay" type="AudioStreamPlayer2D" parent="main/Audio" unique_id=761913817]
 stream = ExtResource("8_eb6dy")
 
-[node name="win" type="AudioStreamPlayer2D" parent="main/Audio"]
+[node name="win" type="AudioStreamPlayer2D" parent="main/Audio" unique_id=60391546]
 stream = ExtResource("9_trceg")
 
-[node name="loss" type="AudioStreamPlayer2D" parent="main/Audio"]
+[node name="loss" type="AudioStreamPlayer2D" parent="main/Audio" unique_id=1933734064]
 stream = ExtResource("10_a8y0u")
 
-[node name="botselect" type="AudioStreamPlayer2D" parent="main/Audio"]
+[node name="botselect" type="AudioStreamPlayer2D" parent="main/Audio" unique_id=1680456562]
 stream = ExtResource("26_2wyq8")
 volume_db = -4.0
 autoplay = true
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_left = 1127.0
-offset_top = -198.0
-offset_right = 1284.0
-offset_bottom = -158.0
+[node name="ColorRect" type="ColorRect" parent="." unique_id=350659949]
+offset_left = 939.0
+offset_top = -165.0
+offset_right = 1070.0
+offset_bottom = -132.0
 scale = Vector2(7.0179, 51.5327)
 color = Color(0.956863, 0.752941, 0.490196, 1)
 
-[node name="Player" type="Sprite2D" parent="."]
-position = Vector2(1647, 942)
+[node name="Player" type="Sprite2D" parent="." unique_id=21311594]
+position = Vector2(1373, 785)
 scale = Vector2(0.236026, 0.272085)
 texture = ExtResource("27_tel4y")
 
-[node name="Point" type="Sprite2D" parent="."]
+[node name="Point" type="Sprite2D" parent="." unique_id=92714270]
 texture_filter = 2
-position = Vector2(1643, 697)
+position = Vector2(1369, 581)
 scale = Vector2(0.320418, 0.28631)
 texture = ExtResource("28_2f3dj")
 script = ExtResource("29_yq6so")
 
-[node name="GameOver_win" type="Control" parent="."]
+[node name="GameOver_win" type="Control" parent="." unique_id=77466170]
 layout_mode = 3
 anchors_preset = 0
 
-[node name="BG" type="TextureRect" parent="GameOver_win"]
+[node name="BG" type="TextureRect" parent="GameOver_win" unique_id=1541655513]
 z_index = 100
 layout_mode = 0
-offset_right = 1024.0
+offset_right = 1834.0983
 offset_bottom = 1024.0
-scale = Vector2(1.24972, 1.05224)
+scale = Vector2(0.878906, 0.878906)
 texture = ExtResource("30_fv21b")
 
-[node name="BotSelectButton" type="Button" parent="GameOver_win/BG"]
+[node name="BotSelectButton" type="Button" parent="GameOver_win/BG" unique_id=554137765]
 layout_mode = 0
 offset_left = 395.287
 offset_top = 752.678
@@ -631,7 +623,7 @@ offset_bottom = 760.678
 scale = Vector2(76.1403, 16.7933)
 flat = true
 
-[node name="mhchinh" type="Button" parent="GameOver_win/BG"]
+[node name="mhchinh" type="Button" parent="GameOver_win/BG" unique_id=111673340]
 layout_mode = 0
 offset_left = 350.478
 offset_top = 518.893
@@ -640,21 +632,21 @@ offset_bottom = 526.893
 scale = Vector2(88.239, 19.9277)
 flat = true
 
-[node name="GameOver_loss" type="Control" parent="."]
+[node name="GameOver_loss" type="Control" parent="." unique_id=1438995543]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="BG" type="TextureRect" parent="GameOver_loss"]
+[node name="BG" type="TextureRect" parent="GameOver_loss" unique_id=1364546165]
 z_index = 100
 layout_mode = 0
-offset_right = 1024.0
+offset_right = 1832.9604
 offset_bottom = 1024.0
-scale = Vector2(1.25214, 1.051)
+scale = Vector2(0.878906, 0.878906)
 texture = ExtResource("31_tel4y")
 
-[node name="choilai" type="Button" parent="GameOver_loss/BG"]
+[node name="choilai" type="Button" parent="GameOver_loss/BG" unique_id=1884729735]
 layout_mode = 0
 offset_left = 524.703
 offset_top = 764.033
@@ -663,7 +655,7 @@ offset_bottom = 772.033
 scale = Vector2(59.9984, 19.5383)
 flat = true
 
-[node name="mhchinh" type="Button" parent="GameOver_loss/BG"]
+[node name="mhchinh" type="Button" parent="GameOver_loss/BG" unique_id=1794543954]
 layout_mode = 0
 offset_left = 436.054
 offset_top = 535.68
@@ -672,112 +664,10 @@ offset_bottom = 543.68
 scale = Vector2(83.3332, 21.4333)
 flat = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=776616031]
 layer = 100
 
-[node name="Control" type="Control" parent="CanvasLayer"]
-z_index = 100
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("32_ijtf4")
-
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer/Control"]
-layout_mode = 0
-offset_left = 1698.0
-offset_top = -8.0
-offset_right = 2722.0
-offset_bottom = 1528.0
-scale = Vector2(0.194336, 0.194336)
-texture_normal = ExtResource("33_ojrv4")
-texture_pressed = ExtResource("33_ojrv4")
-texture_hover = ExtResource("33_ojrv4")
-texture_focused = ExtResource("33_ojrv4")
-
-[node name="Control" type="Control" parent="CanvasLayer/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 24.0
-offset_bottom = 24.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Panel" type="Panel" parent="CanvasLayer/Control/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -24.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/Control"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -768.0
-offset_right = 768.0
-offset_bottom = 1024.0
-grow_horizontal = 2
-texture = ExtResource("34_mui7k")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Control"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -220.0
-offset_top = -126.0
-offset_right = 230.0
-offset_bottom = 166.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("35_r634c")
-theme_override_constants/separation = 84
-
-[node name="ResumeButton" type="Button" parent="CanvasLayer/Control/Control/VBoxContainer"]
-custom_minimum_size = Vector2(450, 100)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("35_r634c")
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 0
-theme_override_constants/h_separation = 0
-theme_override_styles/hover = ExtResource("36_2jwfa")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_brbbq")
-text = "Resume
-"
-
-[node name="QuitButton" type="Button" parent="CanvasLayer/Control/Control/VBoxContainer"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_styles/focus = ExtResource("36_2jwfa")
-theme_override_styles/hover_pressed = ExtResource("36_2jwfa")
-theme_override_styles/hover = ExtResource("36_2jwfa")
-theme_override_styles/pressed = ExtResource("36_2jwfa")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_8n18e")
-text = "Exit Game"
+[node name="Control" parent="CanvasLayer" unique_id=112791858 instance=ExtResource("37_game_control")]
 
 [connection signal="pressed" from="GameOver_win/BG/BotSelectButton" to="." method="_on_bot_select_button_pressed"]
 [connection signal="pressed" from="GameOver_win/BG/mhchinh" to="." method="_on_mhchinh_pressed"]

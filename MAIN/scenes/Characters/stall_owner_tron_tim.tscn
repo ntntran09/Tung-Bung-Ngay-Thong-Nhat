@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://8m6xgq4nlltc" path="res://MAIN/script/stall_owner.gd" id="1_mak0g"]
 [ext_resource type="Texture2D" uid="uid://bg1nf2kv4458v" path="res://MAIN/assets/character/stall_owner/tron_tim.png" id="2_mak0g"]
 [ext_resource type="Texture2D" uid="uid://b5wqruw5qx4c2" path="res://MAIN/assets/ui/e_pointy.png" id="3_ljxs2"]
-[ext_resource type="PackedScene" uid="uid://jb40d53eq8fs" path="res://MAIN/scenes/ui/dialogue_panel.tscn" id="4_qk3p6"]
+[ext_resource type="PackedScene" uid="uid://eed2cfvycsmh" path="res://MAIN/scenes/ui/dialogue_panel.tscn" id="4_qk3p6"]
 [ext_resource type="Texture2D" uid="uid://dc5yy6ebwmec0" path="res://MAIN/assets/character/stall_owner/tron_tim_1.png" id="5_ljxs2"]
 [ext_resource type="Texture2D" uid="uid://c02v8cwgquq2b" path="res://MAIN/assets/character/stall_owner/tron_tim_2.png" id="6_qk3p6"]
 

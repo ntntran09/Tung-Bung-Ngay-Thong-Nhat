@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://eed2cfvycsmh"]
+[gd_scene format=3 uid="uid://eed2cfvycsmh"]
 
 [ext_resource type="Script" uid="uid://byctdw2yb4p8y" path="res://MAIN/script/dialogue_panel.gd" id="1_5n300"]
 [ext_resource type="Texture2D" uid="uid://xyumcoqfu7f7" path="res://MAIN/assets/ui/dialogue.png" id="1_u2elu"]
@@ -13,76 +13,74 @@ font_size = 30
 font_color = Color(0, 0, 0, 1)
 outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_8gsy8"]
-font = ExtResource("4_swtce")
-font_size = 35
-font_color = Color(0, 0, 0, 1)
-outline_size = 3
-outline_color = Color(0, 0, 0, 1)
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_swtce"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8gsy8"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2nch4"]
 
-[node name="DialoguePanel" type="Control"]
+[node name="DialoguePanel" type="Control" unique_id=735339326]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 1928.0
-offset_bottom = 1080.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_5n300")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=2138034611]
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -1080.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 texture = ExtResource("1_u2elu")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="TextureRect2" type="TextureRect" parent="."]
+[node name="TextureRect2" type="TextureRect" parent="." unique_id=243644022]
+z_index = 3
 layout_mode = 1
-anchors_preset = 12
+anchors_preset = 3
+anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1616.0
-offset_top = -416.0
-offset_right = 1616.0
-offset_bottom = 664.0
-grow_horizontal = 2
+offset_left = -249.0
+offset_top = -281.0
+offset_right = -42.0
+offset_bottom = -118.0
+grow_horizontal = 0
 grow_vertical = 0
-scale = Vector2(0.100261, 0.137903)
 texture = ExtResource("3_p254t")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="Selector" type="TextureRect" parent="."]
+[node name="Selector" type="TextureRect" parent="." unique_id=1478917613]
+z_index = 4
 layout_mode = 0
-offset_left = 1073.0
-offset_top = 976.0
-offset_right = 2092.0
-offset_bottom = 2000.0
+offset_right = 48.0
+offset_bottom = 48.0
 rotation = -1.57079
-scale = Vector2(0.0338723, 0.0455085)
+pivot_offset = Vector2(24, 24)
 texture = ExtResource("4_8gsy8")
 expand_mode = 1
-stretch_mode = 4
+stretch_mode = 5
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1247626633]
+z_index = 2
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = -1
+anchor_left = 0.14
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 0.86
 anchor_bottom = 1.0
-offset_left = -787.0
-offset_top = -288.0
-offset_right = 787.0
-offset_bottom = -134.0
+offset_left = -34.28
+offset_top = -263.0
+offset_right = -34.27997
+offset_bottom = -145.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "hello this is test "
@@ -90,74 +88,76 @@ label_settings = SubResource("LabelSettings_b1uan")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+max_lines_visible = 3
 
-[node name="Label2" type="Label" parent="."]
+[node name="Label2" type="Label" parent="." unique_id=346861884]
+z_index = 2
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = -1
+anchor_left = 0.25
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 0.75
 anchor_bottom = 1.0
-offset_left = -724.0
-offset_top = -328.0
-offset_right = 724.0
-offset_bottom = -286.0
+offset_top = -326.0
+offset_bottom = -282.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "hello this is test "
-label_settings = SubResource("LabelSettings_8gsy8")
+label_settings = SubResource("LabelSettings_b1uan")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
 
-[node name="ChoiceBox" type="HBoxContainer" parent="."]
+[node name="ChoiceBox" type="HBoxContainer" parent="." unique_id=1290466419]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -256.0
-offset_top = -152.0
-offset_right = 256.0
-offset_bottom = -83.0
+offset_left = -378.0
+offset_top = -131.0
+offset_right = 302.0
+offset_bottom = -73.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("4_wltsb")
-theme_override_constants/separation = 79
+theme_override_constants/separation = 92
 alignment = 1
 
-[node name="NoButton" type="Button" parent="ChoiceBox"]
+[node name="NoButton" type="Button" parent="ChoiceBox" unique_id=2004173518]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = 1
 theme_override_styles/normal = SubResource("StyleBoxEmpty_swtce")
-text = "Chưa
-"
+text = "Chưa"
 
-[node name="AgainButton" type="Button" parent="ChoiceBox"]
+[node name="AgainButton" type="Button" parent="ChoiceBox" unique_id=1907487903]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/line_spacing = -19
+theme_override_constants/line_spacing = 0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_8gsy8")
-text = "Thuật lại 
-luật chơi"
+text = "Thuật lại luật chơi"
 
-[node name="YesButton" type="Button" parent="ChoiceBox"]
+[node name="YesButton" type="Button" parent="ChoiceBox" unique_id=829774563]
 custom_minimum_size = Vector2(78, 0)
 layout_mode = 2
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_2nch4")
 text = "Rồi"

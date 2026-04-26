@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 GameData="*res://MAIN/script/game_data.gd"
 SceneManager="*res://O_AN_QUAN/scripts/SceneManager.gd"
 Global="*res://TRON_TIM/scripts/Global.gd"
+WindowConfig="*res://MAIN/script/window_config.gd"
 
 [input]
 
