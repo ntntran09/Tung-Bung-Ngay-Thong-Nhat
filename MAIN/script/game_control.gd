@@ -2,27 +2,68 @@ extends Control
 
 const MENU_FRAME_SIZE := Vector2(1536.0, 1024.0)
 
-@onready var menu := $Control  # Menu chính (overlay + frame)
-@onready var menu_frame: Control = $Control/MenuFrame
-@onready var pause_button := $TextureButton  # Nút Pause
-@onready var resume_button: Button = $Control/MenuFrame/VBoxContainer/ResumeButton
-@onready var quit_button: Button = $Control/MenuFrame/VBoxContainer/QuitButton
+@onready var menu: Control = get_node_or_null("Control")
+@onready var pause_button: TextureButton = get_node_or_null("TextureButton")
+
+var menu_frame: Control
+var resume_button: Button
+var quit_button: Button
+var use_menu_frame_scaling := false
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	_bind_menu_nodes()
+	if not _has_required_nodes():
+		set_process_unhandled_input(false)
+		return
+
 	menu.visible = false
 	pause_button.visible = true
 	get_tree().paused = false
-	menu_frame.pivot_offset = MENU_FRAME_SIZE * 0.5
-	get_viewport().size_changed.connect(_update_menu_scale)
-	call_deferred("_update_menu_scale")
+
+	if use_menu_frame_scaling:
+		menu_frame.pivot_offset = MENU_FRAME_SIZE * 0.5
+		get_viewport().size_changed.connect(_update_menu_scale)
+		call_deferred("_update_menu_scale")
 
 	# Kết nối các nút
 	resume_button.pressed.connect(_on_resume)
 	quit_button.pressed.connect(_on_quit)
 	pause_button.pressed.connect(_toggle)
 
+func _bind_menu_nodes() -> void:
+	if menu == null:
+		return
+
+	menu_frame = menu.get_node_or_null("MenuFrame")
+	var button_parent: Node = menu
+	if menu_frame != null:
+		button_parent = menu_frame
+		use_menu_frame_scaling = true
+
+	resume_button = button_parent.get_node_or_null("VBoxContainer/ResumeButton")
+	quit_button = button_parent.get_node_or_null("VBoxContainer/QuitButton")
+
+func _has_required_nodes() -> bool:
+	var missing_nodes: Array[String] = []
+	if menu == null:
+		missing_nodes.append("Control")
+	if pause_button == null:
+		missing_nodes.append("TextureButton")
+	if resume_button == null:
+		missing_nodes.append("VBoxContainer/ResumeButton")
+	if quit_button == null:
+		missing_nodes.append("VBoxContainer/QuitButton")
+
+	if not missing_nodes.is_empty():
+		push_error("Pause menu is missing required nodes: " + ", ".join(missing_nodes))
+		return false
+	return true
+
 func _update_menu_scale() -> void:
+	if menu_frame == null:
+		return
+
 	var viewport_size := get_viewport_rect().size
 	if viewport_size.x <= 0.0 or viewport_size.y <= 0.0:
 		return
