@@ -79,7 +79,7 @@ Renaming these string values requires updates across board and bot logic.
 
 ### Shared pause UI is imported from `MAIN`
 
-`CO_GANH/scenes/main.tscn` does not instance `MAIN/scenes/ui/game_control.tscn` directly. Instead, it embeds the shared pause script `MAIN/script/game_control.gd` plus the related `MAIN` pause assets.
+`CO_GANH/scenes/main.tscn` instances `MAIN/scenes/ui/game_control.tscn` for the shared pause menu. Keep that packed-scene path instead of embedding `MAIN/script/game_control.gd` and pause assets directly.
 
 ## Common Workflows
 

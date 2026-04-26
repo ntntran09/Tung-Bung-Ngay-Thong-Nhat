@@ -103,4 +103,4 @@ func _on_quit():
 	menu.visible = false
 	pause_button.visible = true
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	get_tree().change_scene_to_file("res://MAIN/scenes/main.tscn")
+	get_tree().change_scene_to_file(SceneRoutes.MAIN_HUB)

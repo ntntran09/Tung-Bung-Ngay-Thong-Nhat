@@ -2,6 +2,9 @@ extends Node
 
 var MAX_DEPTH: int = SceneManager.MAX_DEPTH
 
+func set_max_depth(depth: int) -> void:
+	MAX_DEPTH = max(1, depth)
+
 # Cấu trúc mô phỏng board state
 class SimState:
 	var board = []
@@ -37,7 +40,6 @@ func get_ai_best_move(board, score, quan_eaten) -> Dictionary:
 				if value > best_value:
 					best_value = value
 					best_move = {"index": i, "direction": direction}
-	#print("Best value with alpha-beta: ", best_value) 
 	return best_move
 
 
@@ -81,7 +83,6 @@ func minimax(state: SimState, depth: int, is_maximizing: bool, alpha: float = -I
 	if not found_valid_move:
 		return evaluate(state)
 		
-	#print(best)
 	return best
 
 

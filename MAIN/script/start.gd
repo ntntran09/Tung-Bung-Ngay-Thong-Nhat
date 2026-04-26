@@ -1,8 +1,8 @@
 extends Control
 
-@export var next_scene_path: String = "res://scenes/main_menu.tscn"  # Set this in Inspector!
+@export var next_scene_path: String = SceneRoutes.MAIN_HUB
 
 func _input(event):
 	if event.is_pressed():
-		print("🎮 Any input detected. Switching to:", next_scene_path)
+		DebugLog.value("Any input detected. Switching to: ", next_scene_path)
 		get_tree().change_scene_to_file(next_scene_path)

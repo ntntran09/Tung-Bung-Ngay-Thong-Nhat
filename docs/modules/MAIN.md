@@ -42,6 +42,10 @@ This is the most important module for cross-module behavior because all mini-gam
 - `scenes/ui/dialogue_panel.tscn`: stall-owner dialogue panel.
 - `scenes/ui/dialogue_panel_npc.tscn`: roaming NPC dialogue panel.
 - `script/game_data.gd`: `GameData` autoload.
+- `script/app_config.gd`: `AppConfig` autoload for backend URL, timeout, and debug logging settings.
+- `script/scene_routes.gd`: `SceneRoutes` autoload for canonical scene paths.
+- `script/debug_log.gd`: debug-only logging helper.
+- `script/json_api_client.gd`: shared JSON HTTP helper used by backend-dependent features.
 - `script/character_body_3d.gd`: hub player controller.
 - `script/game_control.gd`: shared pause-menu logic reused across modules.
 - `script/dialogue_panel.gd`: stall-owner dialogue behavior and scene launches.
@@ -71,7 +75,7 @@ This is the most important module for cross-module behavior because all mini-gam
   - `input_file`
   - `npc_name`
   - `patrol_parent_path`
-- backend base URL from `GameData.api_url`
+- backend base URL from `AppConfig.backend_base_url()`
 
 ### Outputs
 
@@ -152,7 +156,8 @@ This module does not write persistent save files.
 
 ## Change Impact
 
-- editing `game_data.gd` can affect every module through autoload state
+- editing `game_data.gd` can affect every module through hub/dialogue state
+- editing `app_config.gd` or `json_api_client.gd` can affect backend-dependent NPC and Noi Chu paths
 - editing dialogue panel scripts can break mini-game launch flow
 - editing player group setup can break dialogue movement locks and return-position restore
 - editing or moving shared pause UI can affect `CO_GANH`, `NOI_CHU`, `O_AN_QUAN`, and `TRON_TIM`

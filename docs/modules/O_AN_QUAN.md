@@ -34,8 +34,7 @@
 - `scenes/main.tscn`: gameplay scene. Root node name is currently `main`.
 - `scripts/game_manager.gd`: main gameplay controller.
 - `scripts/SceneManager.gd`: autoload state for difficulty and result-scene values.
-- `scripts/ai_player.gd`: AI search used by current gameplay flow.
-- `scripts/ai_player_1.gd`, `ai_player_2.gd`, `ai_player_3.gd`: present in the repo but not the script preloaded by `game_manager.gd`.
+- `scripts/ai_player.gd`: AI search used by current gameplay flow; depth is set from `SceneManager.MAX_DEPTH`.
 - `scenes/BoardSlot.tscn` + `scripts/board_slot.gd`: board slot display and interaction.
 - `scenes/CaptureSlot.tscn` + `scripts/CapturedSlot.gd`: captured-piece display.
 - `scenes/EndGame.tscn` + `scripts/end_game.gd`: result scene.
@@ -71,14 +70,9 @@
 
 ## Important Runtime Assumptions
 
-### The gameplay scene root must stay `main`
+### Gameplay node paths are relative to `GameManager`
 
-`scripts/game_manager.gd` uses absolute node lookups such as:
-
-- `/root/main/Board`
-- `/root/main/CanvasLayer/DirectionPopup`
-
-If you rename the gameplay scene root, update those paths everywhere before running.
+`scripts/game_manager.gd` now resolves board, popup, score, and captured-slot nodes relative to the `GameManager` node instead of `/root/main/...`.
 
 ### Board node names are part of the contract
 
@@ -142,7 +136,7 @@ This module does not currently write persistent save data.
 
 - editing `SceneManager.gd` affects difficulty, AI depth, and endgame display
 - editing `game_manager.gd` affects almost every gameplay path
-- editing scene root or node names can break runtime immediately because of absolute node paths
+- editing the board, score label, popup, or captured-slot node names can still break runtime if the relative paths are not updated
 - editing shared pause references can affect both O An Quan and other modules
 
 ## What To Test After Changes

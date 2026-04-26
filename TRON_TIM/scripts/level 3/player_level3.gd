@@ -58,8 +58,8 @@ func _physics_process(delta):
 		triggered_gameover = true
 		stand_label.text = "🚨 Phát hiện!"
 		stand_label.modulate = Color.RED
-		print("🚨 Đứng yên quá lâu!")
-		get_tree().change_scene_to_file("res://TRON_TIM/scenes/gameover.tscn")
+		DebugLog.info("Đứng yên quá lâu!")
+		get_tree().change_scene_to_file(SceneRoutes.TRON_TIM_GAME_OVER)
 
 func get_is_moving() -> bool:
 	return is_moving

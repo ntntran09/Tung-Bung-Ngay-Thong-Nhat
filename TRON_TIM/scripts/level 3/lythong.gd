@@ -118,7 +118,7 @@ func _ready():
 	if countdown_label:
 		countdown_label.visible = false
 	else:
-		print("❌ Không tìm thấy countdown_label!")
+		DebugLog.info("Không tìm thấy countdown_label!")
 	
 	_go_to_nearest_patrol_point()  # Bắt đầu với điểm tuần tra gần nhất
 	
@@ -130,13 +130,13 @@ func _reverse_direction():
 		# Nếu không có path, đổi patrol_index
 		patrol_index = (patrol_index + 1) % patrol_points.size()
 		_set_path_to_target(patrol_points[patrol_index].global_position)
-		print("Patrol index: ", patrol_index)
+		DebugLog.value("Patrol index:", patrol_index)
 
 func _check_if_stuck():
 	var distance_moved = global_position.distance_to(previous_position)
 	
 	if distance_moved < 5.0 and velocity.length() > 0.1:
-		print("🚫 NPC có vẻ bị kẹt → xoay hướng")
+		DebugLog.info("NPC có vẻ bị kẹt -> xoay hướng")
 		_reverse_direction()
 	else:
 		# cập nhật lại vị trí nếu di chuyển được
@@ -146,25 +146,25 @@ func _check_if_stuck():
 func _detect_player():
 	if not is_player_detected and _player_is_in_vision():
 		is_player_detected = true
-		print("⚠️ Phát hiện player, bắt đầu reaction_timer")
+		DebugLog.info("Phát hiện player, bắt đầu reaction_timer")
 		reaction_timer.start()
 		await reaction_timer.timeout
 
 		# Đảm bảo player vẫn còn trong vision khi timeout kết thúc
 		if _player_is_in_vision():
-			print("✅ Player bị phát hiện hoàn toàn sau khi reaction_timer kết thúc")
+			DebugLog.info("Player bị phát hiện hoàn toàn sau khi reaction_timer kết thúc")
 			_start_countdown()
 			_start_chase()
 			_start_light_blinking()
 		else:
-			print("❌ Player đã rời khỏi vùng tầm nhìn trước khi bị detect hoàn toàn")
+			DebugLog.info("Player đã rời khỏi vùng tầm nhìn trước khi bị detect hoàn toàn")
 			is_player_detected = false  # reset trạng thái
 
 
 # Tách các hành động khi phát hiện thành các hàm riêng
 func _start_chase():
 	if current_state != State.CHASE:
-		print("👁️ NPC phát hiện player → bắt đầu đuổi")
+		DebugLog.info("NPC phát hiện player -> bắt đầu đuổi")
 		current_state = State.CHASE
 		last_target_position = player.global_position
 		last_known_position = player.global_position
@@ -173,27 +173,27 @@ func _start_chase():
 
 func _start_light_blinking():
 	if vision_cone_light:
-		print("💡 Bắt đầu nháy đèn")
+		DebugLog.info("Bắt đầu nháy đèn")
 		vision_cone_light.energy = original_light_energy * 2  # Tăng độ sáng ban đầu
 		blink_timer.start()
 
 func _stop_light_blinking():
 	if vision_cone_light:
-		print("💡 Dừng nháy đèn")
+		DebugLog.info("Dừng nháy đèn")
 		vision_cone_light.energy = original_light_energy  # Khôi phục độ sáng ban đầu
 		blink_timer.stop()
 
 func _start_countdown():
 	# Kiểm tra lại label và hiển thị nó
 	if not countdown_label:
-		print("❌ Không thể hiển thị countdown: Label không tồn tại!")
+		DebugLog.info("Không thể hiển thị countdown: Label không tồn tại!")
 		# Thử truy cập lại node
 		countdown_label = get_node_or_null("UI/CountdownLabel")
 		if not countdown_label:
-			print("❌❌ Vẫn không tìm thấy countdown_label!")
+			DebugLog.info("Vẫn không tìm thấy countdown_label!")
 			return
 	
-	print("⏱️ Bắt đầu đếm ngược")
+	DebugLog.info("Bắt đầu đếm ngược")
 	countdown_time = 3.0
 	countdown_label.text = str(int(countdown_time))
 	
@@ -208,7 +208,7 @@ func _start_countdown():
 	# Nếu có âm thanh cảnh báo, phát nó
 	if warning_sound and warning_sound.has_method("play"):
 		warning_sound.play()
-		print("✅ Đã phát âm thanh cảnh báo")
+		DebugLog.info("Đã phát âm thanh cảnh báo")
 
 func _stop_countdown():
 	if countdown_timer:
@@ -225,17 +225,17 @@ func _blink_light():
 			vision_cone_light.energy = original_light_energy * 2.0  # Sáng hơn
 
 func _on_countdown_timer_tick():
-	print("⏱️ Countdown timer tick: " + str(countdown_time))
+	DebugLog.info("Countdown timer tick: " + str(countdown_time))
 	
 	if not _should_detect_player():
-		print("❌ Không còn phát hiện player -> dừng đếm ngược")
+		DebugLog.info("Không còn phát hiện player -> dừng đếm ngược")
 		_stop_countdown()
 		is_player_detected = false
 		return
 	
 	# Kiểm tra lại trạng thái của label
 	if countdown_label and not countdown_label.visible:
-		print("⚠️ Label bị ẩn trong quá trình đếm ngược! Hiển thị lại.")
+		DebugLog.info("Label bị ẩn trong quá trình đếm ngược! Hiển thị lại.")
 		countdown_label.visible = true
 		
 	countdown_time -= 1.0
@@ -243,22 +243,22 @@ func _on_countdown_timer_tick():
 		countdown_timer.stop()
 		if countdown_label:
 			countdown_label.visible = false
-		print("💀 Game Over!")
-		get_tree().change_scene_to_file("res://TRON_TIM/scenes/gameover.tscn")
+		DebugLog.info("Game Over!")
+		get_tree().change_scene_to_file(SceneRoutes.TRON_TIM_GAME_OVER)
 	else:
 		if countdown_label:
 			countdown_label.text = str(int(countdown_time))
-			print("Countdown còn lại: " + str(int(countdown_time)))
+			DebugLog.info("Countdown còn lại: " + str(int(countdown_time)))
 
 func _on_vision_body_entered(body):
 	if body == player:
-		print("👀 Player đi vào tầm nhìn")
+		DebugLog.info("Player đi vào tầm nhìn")
 		if _should_detect_player():
 			_detect_player()
 
 func _on_vision_body_exited(body):
 	if body == player and current_state == State.CHASE:
-		print("👋 Mất dấu player")
+		DebugLog.info("Mất dấu player")
 		
 		# Dừng đếm ngược và chuyển sang trạng thái tìm kiếm
 		_stop_countdown()
@@ -273,7 +273,7 @@ func _on_vision_body_exited(body):
 		# Bắt đầu đếm thời gian nhớ
 		memory_timer.start()
 		
-		print("🔍 Bắt đầu tìm kiếm")
+		DebugLog.info("Bắt đầu tìm kiếm")
 
 # Hàm kiểm tra xem có nên phát hiện player không
 func _should_detect_player() -> bool:
@@ -285,16 +285,12 @@ func _should_detect_player() -> bool:
 	
 	# Trong vùng nhìn thấy và đang di chuyển
 	if is_player_moving and _player_is_in_vision():
-		print("🕵️‍♂️ Player bị phát hiện")
-		#print(">> player.velocity: ", player.velocity)
-		#print(">> player.velocity.length(): ", player.velocity.length())
+		DebugLog.info("Player bị phát hiện")
 		return true
 	
 	# Trong khoảng cách gần và đứng im
 	if distance <= CLOSE_TO_PLAYER_DISTANCE:
-		print("... Player distance is so close!")
-		#print("🕵️‍♂️ Checking player... Distance:", distance, "Moving:", is_player_moving)
-		#print("CLOSE_TO_PLAYER_DISTANCE: " + str(CLOSE_TO_PLAYER_DISTANCE))		# Bắt đầu tất cả các hiệu ứng khi phát hiện
+		DebugLog.info("Player distance is so close")
 		return true
 	
 	return false
@@ -323,7 +319,7 @@ func _update_chase_path():
 				_optimize_path()  # Tối ưu đường đi
 				current_path_index = 0
 				last_target_position = player.global_position
-				print("🔄 Cập nhật đường đuổi")
+				DebugLog.info("Cập nhật đường đuổi")
 
 func _go_to_nearest_patrol_point():
 	if patrol_points.is_empty():
@@ -338,7 +334,7 @@ func _go_to_nearest_patrol_point():
 			nearest_id = i
 	patrol_index = nearest_id
 	_set_path_to_target(patrol_points[patrol_index].global_position)
-	print("🚶 Đi đến điểm tuần tra gần nhất: " + str(patrol_index))
+	DebugLog.info("Đi đến điểm tuần tra gần nhất: " + str(patrol_index))
 
 func _physics_process(delta):
 	if not player:
@@ -599,7 +595,7 @@ func _next_patrol():
 		
 	patrol_index = (patrol_index + 1) % patrol_points.size()
 	_set_path_to_target(patrol_points[patrol_index].global_position)
-	print("➡️ Đi đến điểm tuần tra tiếp theo: " + str(patrol_index))
+	DebugLog.info("Đi đến điểm tuần tra tiếp theo: " + str(patrol_index))
 
 func _check_line_of_sight() -> bool:
 	# Kiểm tra xem có vật cản giữa NPC và player không
@@ -625,7 +621,7 @@ func _check_player_proximity():
 		return
 		
 	if _should_detect_player() and not is_player_detected:
-		print("🚨 Điều kiện phát hiện thoả mãn → Bắt đầu truy đuổi")
+		DebugLog.info("Điều kiện phát hiện thoả mãn -> Bắt đầu truy đuổi")
 		_detect_player()
 
 #func _draw():

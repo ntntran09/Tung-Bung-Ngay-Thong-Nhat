@@ -33,6 +33,9 @@
 - `scripts/level_select.gd`: enables/disables level buttons based on `Global`.
 - `scenes/level_1.tscn`, `level_2.tscn`, `level_3.tscn`: playable levels.
 - `scripts/level 1/*`, `scripts/level 2/*`, `scripts/level 3/*`: level-specific player, guard, and UI logic.
+- `scripts/level_ui.gd`: shared timer and level-complete routing for level UI scripts.
+- `scripts/top_down_player.gd`: shared player movement for levels 1 and 2.
+- `scripts/vision_countdown_area.gd`: shared detection countdown area for levels 1 and 2.
 - `scripts/countdown_label.gd`: shared countdown behavior used in levels 1 and 2.
 - `scripts/level 3/countdown_label_lv3.gd`: level-3-specific countdown behavior.
 - `scenes/level_completed.tscn` + `scripts/level_completed.gd`: level-complete scene.
@@ -130,12 +133,12 @@ Then re-test movement, collision, and both game-over and win paths.
 
 ### Change pause or quit flow
 
-The level-select scene and the playable levels embed the shared pause logic from `MAIN/script/game_control.gd` plus the related `MAIN` pause assets, rather than instancing `MAIN/scenes/ui/game_control.tscn` directly.
+Tron Tim level-select and playable level scenes instance `MAIN/scenes/ui/game_control.tscn` for the shared pause menu. Keep that packed-scene reference instead of embedding `MAIN/script/game_control.gd` and pause assets directly.
 
 Re-test:
 
 - `TRON_TIM/scenes/level_select.tscn`
-- one playable level
+- at least one playable level
 
 ## Artifacts
 

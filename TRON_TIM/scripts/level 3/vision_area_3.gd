@@ -16,7 +16,7 @@ func _ready():
 
 func _on_body_entered(body):
 	if body == player:
-		print("👁️ Player đã vào vùng tầm nhìn")
+		DebugLog.info("Player đã vào vùng tầm nhìn")
 		# Kiểm tra xem có nên phát hiện player không
 		if _should_detect_player():
 			emit_signal("player_spotted")
@@ -24,7 +24,7 @@ func _on_body_entered(body):
 # Được gọi khi player rời khỏi vùng tầm nhìn
 func _on_body_exited(body):
 	if body == player:
-		print("👁️ Player đã rời khỏi vùng tầm nhìn")
+		DebugLog.info("Player đã rời khỏi vùng tầm nhìn")
 
 		# Dừng countdown ngay lập tức
 		if get_parent().has_method("_stop_countdown"):
@@ -41,15 +41,15 @@ func _should_detect_player() -> bool:
 	
 	# Trong vùng nhìn thấy và đang di chuyển
 	if is_player_moving:
-		print("🕵️‍♂️ Player bị phát hiện")
-		print(">> player.velocity: ", player.velocity)
-		print(">> player.velocity.length(): ", player.velocity.length())
+		DebugLog.info("Player bị phát hiện")
+		DebugLog.value(">> player.velocity:", player.velocity)
+		DebugLog.value(">> player.velocity.length():", player.velocity.length())
 		return true
 	
 	# Trong khoảng cách gần và đứng im
 	if distance <= CLOSE_TO_PLAYER_DISTANCE:
-		print("🕵️‍♂️ Checking player... Distance:", distance, "Moving:", is_player_moving)
-		print("CLOSE_TO_PLAYER_DISTANCE: " + str(CLOSE_TO_PLAYER_DISTANCE))		# Bắt đầu tất cả các hiệu ứng khi phát hiện
+		DebugLog.info("Checking player... Distance: " + str(distance) + " Moving: " + str(is_player_moving))
+		DebugLog.info("CLOSE_TO_PLAYER_DISTANCE: " + str(CLOSE_TO_PLAYER_DISTANCE))		# Bắt đầu tất cả các hiệu ứng khi phát hiện
 		return true
 
 	

@@ -20,6 +20,14 @@ The runtime starts in `MAIN/scenes/start.tscn`, moves into the 3D hub in `MAIN/s
 
 For the full import workflow and common setup problems, see [docs/import-and-run-godot.md](docs/import-and-run-godot.md).
 
+## Automated Preflight
+
+Run the headless validation script after refactors that touch autoloads, routes, dialogue files, or API configuration:
+
+```powershell
+& 'D:\Code\HCMUS\Godot_v4.6.2\Godot_v4.6.2-stable_win64_console.exe' --headless --path 'D:\Code\HCMUS\folk-games-collection' --script 'res://tools/validate_project.gd'
+```
+
 ## Controls
 
 - `WASD` or arrow keys: move
@@ -39,13 +47,16 @@ For the full import workflow and common setup problems, see [docs/import-and-run
 
 ## Runtime Summary
 
-- `project.godot` autoloads three singleton scripts:
+- `project.godot` autoloads shared config/routing helpers plus three gameplay state singletons:
+  - `AppConfig` -> `MAIN/script/app_config.gd`
+  - `SceneRoutes` -> `MAIN/script/scene_routes.gd`
+  - `DebugLog` -> `MAIN/script/debug_log.gd`
   - `GameData` -> `MAIN/script/game_data.gd`
   - `SceneManager` -> `O_AN_QUAN/scripts/SceneManager.gd`
   - `Global` -> `TRON_TIM/scripts/Global.gd`
 - Stall-owner dialogue in the hub launches mini-game scenes.
 - Returning to the hub relies on a mix of shared pause UI and module-specific end scenes.
-- Some hub NPC dialogue and all of `NOI_CHU` depend on the backend URL configured in `MAIN/script/game_data.gd`.
+- Some hub NPC dialogue and all of `NOI_CHU` depend on the backend URL configured through `application/config/backend_base_url` in `project.godot`.
 
 ## Documentation Map
 
@@ -55,6 +66,8 @@ Use `docs/architecture.md` as the canonical runtime map, the contract docs as th
 - [docs/architecture.md](docs/architecture.md): scene flow, module boundaries, and autoload responsibilities.
 - [docs/contracts/dialogue-and-scene-routing.md](docs/contracts/dialogue-and-scene-routing.md): dialogue file format and mini-game launch contract.
 - [docs/contracts/external-api.md](docs/contracts/external-api.md): HTTP endpoints used by `MAIN` and `NOI_CHU`.
+- [docs/refactors/technical-debt-refactor.md](docs/refactors/technical-debt-refactor.md): full description of the config, routing, API, module, and hygiene refactor.
+- [docs/refactors/refactor-verification.md](docs/refactors/refactor-verification.md): focused verification checklist for the refactor.
 - [docs/runbooks/manual-smoke-test.md](docs/runbooks/manual-smoke-test.md): current regression checklist.
 - [docs/modules/MAIN.md](docs/modules/MAIN.md): module guide for the hub and shared UI.
 - [docs/modules/CO_GANH.md](docs/modules/CO_GANH.md): module guide for Co Ganh.

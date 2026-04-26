@@ -45,5 +45,5 @@ func _on_confirm_pressed():
 		$BotDescription.text = "Hãy chọn một bot trước"
 		$BotDescription.visible = true
 		return
-	print("Đã chọn bot cấp độ:", selected_level)
+	DebugLog.value("Đã chọn bot cấp độ:", selected_level)
 	bot_selected.emit(selected_level)

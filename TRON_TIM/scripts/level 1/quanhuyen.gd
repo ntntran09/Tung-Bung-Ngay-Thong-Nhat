@@ -69,7 +69,7 @@ func _check_if_stuck():
 	var distance_moved = global_position.distance_to(previous_position)
 	
 	if distance_moved < 5.0 and velocity.length() > 0.1:
-		print("🚫 NPC có vẻ bị kẹt → xoay hướng")
+		DebugLog.info("NPC có vẻ bị kẹt -> xoay hướng")
 		_reverse_direction()
 	else:
 		# cập nhật lại vị trí nếu di chuyển được
@@ -86,7 +86,7 @@ func _update_chase_path():
 				path = astar_full_map.get_point_path(from_id, to_id)
 				current_path_index = 0
 				last_target_position = player.global_position
-				print("🔄 Cập nhật đường đuổi")
+				DebugLog.info("Cập nhật đường đuổi")
 
 func _go_to_nearest_patrol_point():
 	if patrol_points.is_empty():
@@ -101,7 +101,7 @@ func _go_to_nearest_patrol_point():
 			nearest_id = i
 	patrol_index = nearest_id
 	_set_path_to_target(patrol_points[patrol_index].global_position)
-	print("🚶 Đi đến điểm tuần tra gần nhất: " + str(patrol_index))
+	DebugLog.info("Đi đến điểm tuần tra gần nhất: " + str(patrol_index))
 
 func _physics_process(delta):
 	if not player:
@@ -233,13 +233,13 @@ func _next_patrol():
 		
 	patrol_index = (patrol_index + 1) % patrol_points.size()
 	_set_path_to_target(patrol_points[patrol_index].global_position)
-	print("➡️ Đi đến điểm tuần tra tiếp theo: " + str(patrol_index))
+	DebugLog.info("Đi đến điểm tuần tra tiếp theo: " + str(patrol_index))
 
 func _on_body_entered(body: Node2D) -> void:
 	if body == player and not is_chasing:
 		is_chasing = true
 		last_target_position = player.global_position
-		print("👁️ Bắt đầu đuổi theo player")
+		DebugLog.info("Bắt đầu đuổi theo player")
 		
 		# Thiết lập đường đi đến player và bắt đầu timer
 		_set_path_to_target(player.global_position)
@@ -247,7 +247,7 @@ func _on_body_entered(body: Node2D) -> void:
 
 func _on_body_exited(body: Node2D):
 	if body == player and is_chasing:
-		print("👋 Mất dấu player")
+		DebugLog.info("Mất dấu player")
 		# Đợi 1 giây trước khi từ bỏ
 		await get_tree().create_timer(1.0).timeout
 		
@@ -255,7 +255,7 @@ func _on_body_exited(body: Node2D):
 		if vision_area and not vision_area.get_overlapping_bodies().has(player):
 			is_chasing = false
 			chase_update_timer.stop()
-			print("🔍 Quay lại tuần tra")
+			DebugLog.info("Quay lại tuần tra")
 			_go_to_nearest_patrol_point()
 
 #func _draw():

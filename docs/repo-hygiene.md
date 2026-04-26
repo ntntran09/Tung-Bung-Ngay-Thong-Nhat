@@ -53,26 +53,17 @@ Do not delete these casually.
 
 If `EXPORT/` contents appear in a worktree diff, remember that they are build artifacts.
 
-## Tracked Editor Backup Files
+## Editor Backup Files
 
-The repo currently contains tracked Godot temporary scene backups such as:
+Godot temporary scene backups such as:
 
 - `*.tmp`
-
-Examples exist under:
-
-- `MAIN/scenes/`
-- `MAIN/scenes/Characters/`
-- `CO_GANH/scenes/`
-- `O_AN_QUAN/scenes/`
-- `TRON_TIM/scenes/`
-- `TRON_TIM/animations/`
 
 Guidance:
 
 - do not use `*.tmp` files as source of truth
 - do not edit them as part of feature work
-- remove them only in an intentional cleanup change after confirming nobody relies on them
+- they are ignored by `.gitignore` and should not be reintroduced
 
 ## Current Repo-Specific Notes
 
@@ -96,11 +87,11 @@ Do not copy that older path into new work; use the canonical `ui/` path.
 
 If dialogue files move or are renamed, update export presets as well as scene bindings.
 
-### The backend URL is hard-coded
+### Backend configuration
 
-`MAIN/script/game_data.gd` contains the base URL for backend-dependent features.
+`MAIN/script/app_config.gd` reads the base URL for backend-dependent features from `application/config/backend_base_url`.
 
-That is easy to change locally and easy to forget in docs, so review related docs whenever it changes.
+Do not commit temporary tunnel or proxy hosts in source. Review related docs whenever backend configuration changes.
 
 ## Commit Guidance
 
@@ -119,7 +110,6 @@ That is easy to change locally and easy to forget in docs, so review related doc
 
 - deleting or regenerating many `.import` files
 - deleting many `.uid` files
-- bulk-removing tracked `*.tmp` files
 - moving shared scenes used across modules
 - renaming hub dialogue files
 

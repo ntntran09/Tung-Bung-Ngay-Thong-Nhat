@@ -9,16 +9,23 @@ var quan_eaten := [false, false]  # Quan trái (slot 0), Quan phải (slot 6)
 var AIPlayer
 var ai_level: String = "easy"  # default nếu không set từ ngoài
 var previous_counts := []
-@onready var captured_left = get_node("/root/main/Board/CapturedSlotLeft")
-@onready var captured_right = get_node("/root/main/Board/CapturedSlotRight")
+@onready var board_root := $"../Board"
+@onready var main_board := $"../Board/MainBoard"
+@onready var left_slots := $"../Board/MainBoard/DanSlot/Left"
+@onready var right_slots := $"../Board/MainBoard/DanSlot/Right"
+@onready var captured_left = $"../Board/CapturedSlotLeft"
+@onready var captured_right = $"../Board/CapturedSlotRight"
 var game_over := false
 var current_selected_slot: Node = null
 @onready var sound_drop := $"../Sounds/Sound_DropPiece"
 @onready var sound_eat := $"../Sounds/Sound_Eat"
 @onready var sound_button := $"../Sounds/Sound_Button"
+@onready var direction_popup := $"../CanvasLayer/DirectionPopup"
 @onready var turn_notification := $"../CanvasLayer/TurnNotification"
 @onready var turn_label := $"../CanvasLayer/TurnNotification/TurnLabel"
 @onready var fadetransition := $"../CanvasLayer/ColorRect2"
+@onready var left_score_label := $"../CanvasLayer/LeftScoreLabel"
+@onready var right_score_label := $"../CanvasLayer/RightScoreLabel"
 
 func _ready():
 
@@ -34,7 +41,8 @@ func _ready():
 			SceneManager.MAX_DEPTH = 7
 			
 	AIPlayer = preload("res://O_AN_QUAN/scripts/ai_player.gd").new()
-	print(SceneManager.MAX_DEPTH)
+	AIPlayer.set_max_depth(SceneManager.MAX_DEPTH)
+	DebugLog.value("O An Quan AI depth: ", SceneManager.MAX_DEPTH)
 	setup_board()
 func setup_board():
 	var init_data = [
@@ -52,15 +60,15 @@ func setup_board():
 		{"type": "dân", "player": "right", "count": 5},  # Slot 11
 	]
 	
-	var board_node = get_node("/root/main/Board")
+	var board_node: Node
 
 	for i in range(12):
 		if i == 0 or i == 6:
-			board_node = get_node("/root/main/Board/MainBoard")
+			board_node = main_board
 		elif i < 6:
-			board_node = get_node("/root/main/Board/MainBoard/DanSlot/Left")
+			board_node = left_slots
 		else:
-			board_node = get_node("/root/main/Board/MainBoard/DanSlot/Right")
+			board_node = right_slots
 		var slot = board_node.get_node("BoardSlot%d" % i)
 		var data = init_data[i]
 		slot.set_data(i, data.count, data.type, data.player, (i == 0 and quan_eaten[0]) or (abs(i) == 6 and quan_eaten[1]))
@@ -98,16 +106,14 @@ func _on_slot_clicked(index: int):
 	show_direction_choice()
 	
 func show_direction_choice():
-	var popup = get_node("/root/main/CanvasLayer/DirectionPopup")
 	var viewport_size = get_viewport().get_visible_rect().size
 
 # Canh giữa thủ công
-	popup.position = Vector2((viewport_size.x - popup.size.x / 3) / 2, viewport_size.y / 3 * 2)
-	popup.show()
+	direction_popup.position = Vector2((viewport_size.x - direction_popup.size.x / 3) / 2, viewport_size.y / 3 * 2)
+	direction_popup.show()
 
 func hide_direction_choice():
-	var popup = get_node("/root/main/CanvasLayer/DirectionPopup")
-	popup.hide()
+	direction_popup.hide()
 
 
 func start_rain_with_direction(direction: int) -> void:
@@ -159,12 +165,7 @@ func try_eat(last_index: int, direction: int):
 		
 		var eat_index = (next + direction) % 12
 		var eat_slot = board[eat_index]
-		var capture_slot_path
-		if(current_player == "left"):
-			capture_slot_path  = "/root/main/Board/CapturedSlotLeft" 
-		else:
-			capture_slot_path = "/root/main/Board/CapturedSlotRight"
-		var capture_slot_node = get_node(capture_slot_path)
+		var capture_slot_node = captured_left if current_player == "left" else captured_right
 		
 		if eat_slot.count > 0:
 			
@@ -294,7 +295,7 @@ func check_game_over():
 func show_end_game():
 	SceneManager.player_score = score["left"]
 	SceneManager.ai_score = score["right"]
-	await fadetransition.transition_to_scene("res://O_AN_QUAN/scenes/EndGame.tscn", 0.5)
+	await fadetransition.transition_to_scene(SceneRoutes.O_AN_QUAN_END_GAME, 0.5)
 
 	
 func has_no_dan_quan(player: String) -> bool:
@@ -313,7 +314,7 @@ func regenerate_dan(player: String) -> void:
 	var cost = 5
 	if score[player] < cost:
 		
-		print("⚠️ Người chơi %s không đủ điểm để cấy lại quân. Trò chơi kết thúc!" % player)
+		DebugLog.value("Not enough score to regenerate pieces for: ", player)
 		game_over = true
 		await collect_remaining_quan()
 		show_end_game()
@@ -339,11 +340,9 @@ func regenerate_dan(player: String) -> void:
 	update_board()
 
 func collect_remaining_quan():
-	var capture_slot_node_left = get_node("/root/main/Board/CapturedSlotLeft")
-	var capture_slot_node_right = get_node("/root/main/Board/CapturedSlotRight")
 	for i in range(1, 6):
 		if(board[i].count > 0):
-			board[i].animate_capture(capture_slot_node_left.global_position)
+			board[i].animate_capture(captured_left.global_position)
 			await get_tree().create_timer(0.5).timeout
 			add_to_captured_slot("left", i, board[i].count, board[i].type)
 			score["left"] += board[i].count
@@ -351,7 +350,7 @@ func collect_remaining_quan():
 			update_board()
 	for i in range(7, 12):
 		if(board[i].count > 0):
-			board[i].animate_capture(capture_slot_node_right.global_position)
+			board[i].animate_capture(captured_right.global_position)
 			await get_tree().create_timer(0.5).timeout
 			add_to_captured_slot("right", i, board[i].count, board[i].type)
 			score["right"] += board[i].count
@@ -359,8 +358,8 @@ func collect_remaining_quan():
 			update_board()
 
 func update_score_display():
-	get_node("/root/main/CanvasLayer/LeftScoreLabel").text = "Điểm của bạn: %d" % score["left"]
-	get_node("/root/main/CanvasLayer/RightScoreLabel").text = "Điểm của máy: %d" % score["right"]
+	left_score_label.text = "Điểm của bạn: %d" % score["left"]
+	right_score_label.text = "Điểm của máy: %d" % score["right"]
 
 func _on_left_button_pressed() -> void:
 	sound_button.play()

@@ -14,9 +14,15 @@ config/name="folk-games-collection"
 run/main_scene="uid://davwsjqkbp7ei"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+config/backend_base_url=""
+config/api_timeout_seconds=8.0
+config/debug_logging=false
 
 [autoload]
 
+AppConfig="*res://MAIN/script/app_config.gd"
+SceneRoutes="*res://MAIN/script/scene_routes.gd"
+DebugLog="*res://MAIN/script/debug_log.gd"
 GameData="*res://MAIN/script/game_data.gd"
 SceneManager="*res://O_AN_QUAN/scripts/SceneManager.gd"
 Global="*res://TRON_TIM/scripts/Global.gd"

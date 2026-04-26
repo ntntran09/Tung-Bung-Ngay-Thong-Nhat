@@ -6,7 +6,8 @@ This document records the HTTP contract that the current Godot project expects. 
 
 ## Canonical Files
 
-- `MAIN/script/game_data.gd`
+- `MAIN/script/app_config.gd`
+- `MAIN/script/json_api_client.gd`
 - `MAIN/script/npc.gd`
 - `NOI_CHU/scripts/GameNoiTu.gd`
 
@@ -19,9 +20,9 @@ This document records the HTTP contract that the current Godot project expects. 
 
 ## Base URL
 
-The backend base URL is currently hard-coded in `MAIN/script/game_data.gd` as `GameData.api_url`.
+The backend base URL is configured through `application/config/backend_base_url` in `project.godot` and read by `AppConfig.backend_base_url()`.
 
-This document does not duplicate the literal host because the value is likely to change independently of the client-side contract.
+The source should not contain temporary tunnel or proxy hosts. Local builds can set the project setting in Godot before running API-dependent paths.
 
 ## Current Consumers
 
@@ -32,19 +33,20 @@ This document does not duplicate the literal host because the value is likely to
 
 ## Request Helper Behavior
 
-### `NOI_CHU/scripts/GameNoiTu.gd`
+### Shared behavior
 
-- empty body `{}` -> sends a `GET`
-- non-empty body -> sends a `POST` with JSON
-- expects a single response per request
-- uses an HTTP timeout and routes bad responses to the in-game game-over/error path
+`MAIN/script/json_api_client.gd` is the shared JSON HTTP helper for current backend consumers.
 
-### `MAIN/script/npc.gd`
+It returns callbacks with:
 
-- guards against overlapping requests with `is_requesting`
-- sends `POST` when body is non-empty
-- stores a callback and invokes it on `200` responses
-- uses a timeout and keeps local fallback text available if the backend response is unusable
+- `ok`: boolean
+- `code`: HTTP status code, or `0` before a response exists
+- `data`: parsed response dictionary
+- `error`: user-facing or diagnostic error text
+
+Empty body `{}` sends a `GET`; non-empty body sends a JSON `POST`.
+
+`NOI_CHU/scripts/GameNoiTu.gd` routes failed responses to the in-game game-over/error path. `MAIN/script/npc.gd` keeps local fallback text when the backend response is unusable.
 
 ## Endpoint Contracts
 
@@ -211,7 +213,7 @@ The request sends NPC background material read from the local dialogue/backgroun
 ## Compatibility Risks
 
 - The backend contract is implicit and not schema-validated.
-- The base URL is hard-coded, not environment-configured.
+- The base URL is environment/config driven but still required for normal API-dependent play.
 - `NOI_CHU` assumes exact field names and does not tolerate alternate response shapes.
 - `MAIN/script/npc.gd` uses the same request field for backend-generated text and falls back locally when the response is unusable.
 

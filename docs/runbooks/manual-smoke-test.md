@@ -19,7 +19,22 @@ Run at least the relevant subset after changes to:
 ## Prerequisites
 
 - Godot has re-imported assets cleanly.
-- If you changed backend-dependent code, the backend configured by `GameData.api_url` is reachable.
+- If you changed backend-dependent code, the backend configured by `application/config/backend_base_url` is reachable.
+
+## Automated Preflight
+
+Before manual smoke testing, run:
+
+```powershell
+& 'D:\Code\HCMUS\Godot_v4.6.2\Godot_v4.6.2-stable_win64_console.exe' --headless --path 'D:\Code\HCMUS\folk-games-collection' --script 'res://tools/validate_project.gd'
+```
+
+Pass condition:
+
+- required autoloads exist
+- canonical scene routes load
+- dialogue files have title lines
+- `.gd` scripts do not contain hard-coded backend URLs
 
 ## 1. Startup Path
 

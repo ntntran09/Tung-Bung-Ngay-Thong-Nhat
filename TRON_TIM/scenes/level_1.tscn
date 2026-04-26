@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://crc4brvvyu0rd"]
+[gd_scene load_steps=25 format=3 uid="uid://crc4brvvyu0rd"]
 
 [ext_resource type="Texture2D" uid="uid://kyvf6p4mj3fs" path="res://TRON_TIM/assets/sprites/bg level 11111111.png" id="1_2os1m"]
 [ext_resource type="Texture2D" uid="uid://bmxxa5eiguad4" path="res://TRON_TIM/assets/sprites/okkkkkkkkk.png" id="2_2os1m"]
@@ -16,11 +16,7 @@
 [ext_resource type="SpriteFrames" uid="uid://o30wjpp5n3hd" path="res://TRON_TIM/animations/quanhuyen.tres" id="10_rix1q"]
 [ext_resource type="Texture2D" uid="uid://dtyhfueqg6xho" path="res://TRON_TIM/assets/sprites/visioncone.png" id="11_ts7b8"]
 [ext_resource type="Script" uid="uid://bgmfcb7s3g52m" path="res://TRON_TIM/scripts/level 1/vision_area.gd" id="12_h5gra"]
-[ext_resource type="Script" uid="uid://o2wnbq4jqpxn" path="res://MAIN/script/game_control.gd" id="13_qsdy7"]
-[ext_resource type="Texture2D" uid="uid://d04mex2btkvfd" path="res://MAIN/assets/ui/pause_icon.png" id="14_6kd5f"]
-[ext_resource type="Texture2D" uid="uid://bt527iaapnslo" path="res://MAIN/assets/ui/pause_screen_in_game.png" id="15_a8q3s"]
-[ext_resource type="Theme" uid="uid://ccjbl02crsn70" path="res://MAIN/assets/control_theme.tres" id="16_vlr7r"]
-[ext_resource type="StyleBox" uid="uid://cjd00vb5wc7vg" path="res://MAIN/assets/control_hover.tres" id="17_qmu2a"]
+[ext_resource type="PackedScene" uid="uid://bghlte3la24n5" path="res://MAIN/scenes/ui/game_control.tscn" id="13_game_control"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h3yna"]
 size = Vector2(11, 26)
@@ -42,10 +38,6 @@ size = Vector2(22.5806, 251.29)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vlr7r"]
 size = Vector2(20, 262.258)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ojsc7"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kh4rb"]
 
 [node name="Node" type="Node"]
 
@@ -254,115 +246,13 @@ shape = SubResource("RectangleShape2D_a8q3s")
 position = Vector2(-203.548, 194.677)
 shape = SubResource("RectangleShape2D_vlr7r")
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" parent="." instance=ExtResource("13_game_control")]
 top_level = true
 z_index = 100
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 offset_left = -646.0
 offset_top = 231.0
 offset_right = -646.0
 offset_bottom = 231.0
-grow_horizontal = 2
-grow_vertical = 2
 scale = Vector2(0.67, 0.67)
-mouse_filter = 2
-script = ExtResource("13_qsdy7")
-
-[node name="TextureButton" type="TextureButton" parent="Control"]
-layout_mode = 0
-offset_left = 24.0
-offset_top = 885.075
-offset_right = 1048.0
-offset_bottom = 2421.07
-scale = Vector2(0.15, 0.15)
-texture_normal = ExtResource("14_6kd5f")
-texture_pressed = ExtResource("14_6kd5f")
-texture_hover = ExtResource("14_6kd5f")
-texture_focused = ExtResource("14_6kd5f")
-
-[node name="Control" type="Control" parent="Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 24.0
-offset_bottom = 24.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Panel" type="Panel" parent="Control/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -24.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="Control/Control"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -767.463
-offset_top = -0.119392
-offset_right = 768.537
-offset_bottom = 1023.89
-grow_horizontal = 2
-texture = ExtResource("15_a8q3s")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/Control"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -220.0
-offset_top = -126.0
-offset_right = 230.0
-offset_bottom = 166.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("16_vlr7r")
-theme_override_constants/separation = 84
-
-[node name="ResumeButton" type="Button" parent="Control/Control/VBoxContainer"]
-custom_minimum_size = Vector2(450, 100)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("16_vlr7r")
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 0
-theme_override_constants/h_separation = 0
-theme_override_styles/hover = ExtResource("17_qmu2a")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_ojsc7")
-text = "Resume
-"
-
-[node name="QuitButton" type="Button" parent="Control/Control/VBoxContainer"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_styles/focus = ExtResource("17_qmu2a")
-theme_override_styles/hover_pressed = ExtResource("17_qmu2a")
-theme_override_styles/hover = ExtResource("17_qmu2a")
-theme_override_styles/pressed = ExtResource("17_qmu2a")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_kh4rb")
-text = "Exit Game"
 
 [connection signal="body_entered" from="level 1/quanhuyen/VisionRoot/VisionCone/Area2D" to="level 1/quanhuyen" method="_on_area_2d_body_entered"]

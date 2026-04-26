@@ -93,7 +93,7 @@ func _check_if_stuck():
 	var distance_moved = global_position.distance_to(previous_position)
 	
 	if distance_moved < 5.0 and velocity.length() > 0.1:
-		print("🚫 NPC có vẻ bị kẹt → xoay hướng")
+		DebugLog.info("NPC có vẻ bị kẹt -> xoay hướng")
 		_reverse_direction()
 	else:
 		# cập nhật lại vị trí nếu di chuyển được
@@ -117,7 +117,7 @@ func _update_chase_path():
 				_optimize_path()  # Tối ưu đường đi
 				current_path_index = 0
 				last_target_position = player.global_position
-				print("🔄 Cập nhật đường đuổi")
+				DebugLog.info("Cập nhật đường đuổi")
 
 func _go_to_nearest_patrol_point():
 	if patrol_points.is_empty():
@@ -132,7 +132,7 @@ func _go_to_nearest_patrol_point():
 			nearest_id = i
 	patrol_index = nearest_id
 	_set_path_to_target(patrol_points[patrol_index].global_position)
-	print("🚶 Đi đến điểm tuần tra gần nhất: " + str(patrol_index))
+	DebugLog.info("Đi đến điểm tuần tra gần nhất: " + str(patrol_index))
 
 func _physics_process(delta):
 	if not player:
@@ -378,7 +378,7 @@ func _next_patrol():
 		
 	patrol_index = (patrol_index + 1) % patrol_points.size()
 	_set_path_to_target(patrol_points[patrol_index].global_position)
-	print("➡️ Đi đến điểm tuần tra tiếp theo: " + str(patrol_index))
+	DebugLog.info("Đi đến điểm tuần tra tiếp theo: " + str(patrol_index))
 
 func _check_line_of_sight() -> bool:
 	# Kiểm tra xem có vật cản giữa NPC và player không
@@ -400,7 +400,7 @@ func _on_body_entered(body: Node2D) -> void:
 		reaction_timer.start()
 		await reaction_timer.timeout
 		
-		print("👁️ Bắt đầu đuổi theo player")
+		DebugLog.info("Bắt đầu đuổi theo player")
 		#warning_sound.play()
 		
 		current_state = State.CHASE
@@ -416,7 +416,7 @@ func _on_body_exited(body: Node2D):
 		return  # Không thật sự mất dấu
 	
 	if body == player and current_state == State.CHASE:
-		print("👋 Mất dấu player")
+		DebugLog.info("Mất dấu player")
 		#warning_sound.stop()
 		
 		# Chuyển sang trạng thái tìm kiếm
@@ -429,7 +429,7 @@ func _on_body_exited(body: Node2D):
 		# Bắt đầu đếm thời gian nhớ
 		memory_timer.start()
 		
-		print("🔍 Bắt đầu tìm kiếm")
+		DebugLog.info("Bắt đầu tìm kiếm")
 
 #func _draw():
 	## Vẽ đường đi để debug

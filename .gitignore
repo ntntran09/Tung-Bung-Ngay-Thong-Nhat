@@ -8,3 +8,6 @@
 
 # Build/export output
 /EXPORT/
+
+# Godot editor backups
+*.tmp

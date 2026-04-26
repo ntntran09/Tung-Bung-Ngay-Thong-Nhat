@@ -57,16 +57,16 @@ func _input(event: InputEvent):
 			dialogue_box.start_from_file(dialogue_file_path)
 
 func _on_dialogue_closed():
-	print("❌ Dialogue closed by player → entering cooldown")
+	DebugLog.info("Dialogue closed by player -> entering cooldown")
 	GameData.dialogue_cooldown = true
 	start_dialogue_cooldown()
 
 func start_close_cooldown():
 	await get_tree().create_timer(0.2).timeout
 	just_closed = false
-	print("✅ Short cooldown ended — ready to talk again")
+	DebugLog.info("Short cooldown ended - ready to talk again")
 
 func start_dialogue_cooldown():
 	await get_tree().create_timer(1.0).timeout
 	GameData.dialogue_cooldown = false
-	print("🕓 Dialogue cooldown ended — player can interact again")
+	DebugLog.info("Dialogue cooldown ended - player can interact again")

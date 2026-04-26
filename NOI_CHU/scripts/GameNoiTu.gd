@@ -1,5 +1,7 @@
 extends Control
 
+const JsonApiClient = preload("res://MAIN/script/json_api_client.gd")
+
 var score: int = 0
 var time_left: int = 20
 var session_id: String = ""
@@ -21,14 +23,12 @@ var game_over_started := false
 @onready var wrong_player = $SFXContainer/WrongPlayer
 @onready var timeout_player = $SFXContainer/TimeoutPlayer
 
-const SERVER_URL := GameData.api_url
-
-var last_callback: Callable
+var api_client
 
 func _ready():
 	get_tree().paused = false
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	api.timeout = 8.0
+	api_client = JsonApiClient.new(api)
 	timer.wait_time = 1.0
 	timer.timeout.connect(_on_timer_tick)
 	word_input.focus_mode = Control.FOCUS_ALL
@@ -37,35 +37,14 @@ func _ready():
 	set_input_enabled(false)
 	start_new_game()
 
-func api_call(path: String, body: Variant, callback: Callable):
-	last_callback = callback
-
-	var headers = ["Content-Type: application/json"]
-	var method = HTTPClient.METHOD_GET
-	var payload := ""
-
-	if body != {}:
-		method = HTTPClient.METHOD_POST
-		payload = JSON.stringify(body)
-
-	if not api.is_connected("request_completed", Callable(self, "_on_api_response")):
-		api.request_completed.connect(_on_api_response, CONNECT_ONE_SHOT)
-
-	var err = api.request(SERVER_URL + path, headers, method, payload)
-	if err != OK:
-		game_over("Không kết nối được server.")
-
-func _on_api_response(result, code, headers, body):
-	if code != 200:
-		game_over("Lỗi kết nối server (%d)" % code)
-		return
-
-	var json = JSON.parse_string(body.get_string_from_utf8())
-	if json == null:
-		game_over("Phản hồi server không hợp lệ.")
-		return
-
-	last_callback.call(json)
+func api_call(path: String, body: Dictionary, callback: Callable):
+	api_client.request(path, body, func(result: Dictionary):
+		if not result["ok"]:
+			wrong_player.play()
+			game_over(str(result["error"]))
+			return
+		callback.call(result["data"])
+	)
 
 func start_new_game():
 	game_over_started = false
@@ -211,7 +190,7 @@ func game_over(reason: String):
 	await get_tree().create_timer(3.0).timeout
 
 	get_tree().paused = true
-	var game_over_scene = preload("res://NOI_CHU/scenes/game_over.tscn").instantiate()
+	var game_over_scene = load(SceneRoutes.NOI_CHU_GAME_OVER).instantiate()
 	add_child(game_over_scene)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 

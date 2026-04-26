@@ -10,6 +10,7 @@ This is the canonical runtime map. Use the contract docs for interface details a
 
 - [contracts/dialogue-and-scene-routing.md](contracts/dialogue-and-scene-routing.md): hub dialogue file format, scene launch bindings, and return-position behavior.
 - [contracts/external-api.md](contracts/external-api.md): HTTP endpoints consumed by `MAIN` and `NOI_CHU`.
+- [refactors/technical-debt-refactor.md](refactors/technical-debt-refactor.md): detailed record of the shared config, route, API, module, and hygiene refactor.
 - [modules/MAIN.md](modules/MAIN.md): startup, hub, dialogue, NPCs, and shared UI.
 - [modules/CO_GANH.md](modules/CO_GANH.md): Co Ganh module guide.
 - [modules/NOI_CHU.md](modules/NOI_CHU.md): Noi Chu module guide.
@@ -25,7 +26,8 @@ This is a Godot `4.6` project with:
 - a startup scene in `MAIN/scenes/start.tscn`
 - a hub world in `MAIN/scenes/main.tscn`
 - four mini-game modules launched from hub interactions
-- three autoload singletons that carry cross-scene state
+- shared autoload helpers for config, routing, and debug logging
+- three gameplay autoload singletons that carry cross-scene state
 
 ## Startup And Scene Flow
 
@@ -46,7 +48,7 @@ project.godot
                   -> TRON_TIM/scenes/level_completed.tscn
                   -> TRON_TIM/scenes/gameover.tscn
           -> roaming hub NPC dialogue
-              -> HTTP backend via GameData.api_url
+              -> HTTP backend via AppConfig backend settings
 ```
 
 ## Module Boundaries
@@ -79,6 +81,10 @@ Important files:
 - `MAIN/script/stall_owner.gd`
 - `MAIN/script/npc.gd`
 - `MAIN/script/game_data.gd`
+- `MAIN/script/app_config.gd`
+- `MAIN/script/scene_routes.gd`
+- `MAIN/script/debug_log.gd`
+- `MAIN/script/json_api_client.gd`
 - `MAIN/script/game_control.gd`
 - `MAIN/scenes/ui/game_control.tscn`
 
@@ -129,6 +135,45 @@ Shared state is kept in the `Global` autoload and is not persisted to disk.
 
 ## Autoload Responsibilities
 
+### `AppConfig`
+
+File: `MAIN/script/app_config.gd`
+
+Used for:
+
+- backend base URL from `application/config/backend_base_url`
+- HTTP timeout from `application/config/api_timeout_seconds`
+- debug logging flag from `application/config/debug_logging`
+
+Impact:
+
+- breaking this singleton affects backend-dependent features and debug logging.
+
+### `SceneRoutes`
+
+File: `MAIN/script/scene_routes.gd`
+
+Used for:
+
+- canonical scene paths
+- route validation before selected scene changes
+
+Impact:
+
+- breaking this singleton affects module launch, quit, and level transition flows.
+
+### `DebugLog`
+
+File: `MAIN/script/debug_log.gd`
+
+Used for:
+
+- debug-only logs controlled by `AppConfig`
+
+Impact:
+
+- breaking this singleton should not affect gameplay, but can hide diagnostics.
+
 ### `GameData`
 
 File: `MAIN/script/game_data.gd`
@@ -139,11 +184,10 @@ Used for:
 - whether dialogue is open
 - dialogue cooldown
 - saved hub player position
-- backend base URL
 
 Impact:
 
-- breaking this singleton affects hub dialogue, player return position, and backend-dependent features.
+- breaking this singleton affects hub dialogue and player return position.
 
 ### `SceneManager`
 
@@ -183,7 +227,7 @@ Most scene loading, board logic, movement, and audio are local-only.
 
 ### External HTTP backend
 
-The backend base URL lives in `MAIN/script/game_data.gd`.
+The backend base URL is read by `AppConfig` from `application/config/backend_base_url` in `project.godot`.
 
 The expected client-side API shape is documented in [contracts/external-api.md](contracts/external-api.md).
 
@@ -191,6 +235,8 @@ Current consumers:
 
 - roaming hub NPCs in `MAIN/script/npc.gd`
 - `NOI_CHU/scripts/GameNoiTu.gd`
+
+Both consumers use `MAIN/script/json_api_client.gd` for JSON request handling.
 
 That means the repo has both local-only gameplay paths and backend-dependent gameplay paths.
 
@@ -211,15 +257,15 @@ That means the repo has both local-only gameplay paths and backend-dependent gam
 
 - `_SHARED ASSETS/font/*.tres` are reused across modules.
 - The shared pause implementation lives in `MAIN/script/game_control.gd` and `MAIN/scenes/ui/game_control.tscn`.
-- `NOI_CHU` and `O_AN_QUAN` use `MAIN/scenes/ui/game_control.tscn` directly, while `CO_GANH` and `TRON_TIM` embed the same pause script and assets directly in their scenes.
+- `CO_GANH`, `NOI_CHU`, `O_AN_QUAN`, and `TRON_TIM` use `MAIN/scenes/ui/game_control.tscn` directly.
 
 ## Current Limitations And Risks
 
-- No automated tests are visible; verification is manual.
-- Backend-dependent behavior has no documented environment switch or retry strategy.
+- No automated gameplay test suite is visible; `tools/validate_project.gd` covers route/config/dialogue preflight checks, and gameplay verification is still manual.
+- Backend-dependent behavior is configured through `AppConfig`; normal play still requires a reachable backend.
 - Scene-template defaults are not always authoritative; parent-scene instance overrides often define the real behavior.
 - Some older scene resources may contain stale path text even when UIDs still resolve.
-- The repo tracks multiple `*.tmp` Godot scene backups, which are not reliable sources of truth.
+- Godot `*.tmp` backups are ignored and should not be treated as source.
 
 ## Change Impact Notes
 
@@ -241,7 +287,7 @@ Re-test `NOI_CHU`, `O_AN_QUAN`, and `TRON_TIM`.
 
 ### If you change `O_AN_QUAN/scenes/main.tscn`
 
-Preserve node names expected by absolute paths in `game_manager.gd`.
+Preserve node names expected by the relative references in `game_manager.gd`, or update the script and scene together.
 
 ### If you change `TRON_TIM` level naming or UI wiring
 

@@ -25,7 +25,7 @@
 - backend implementation
 - hub dialogue that launches the game
 - persistent score storage
-- project-wide API configuration beyond reading `GameData.api_url`
+- project-wide API configuration beyond reading `AppConfig`
 
 ## Structure
 
@@ -47,7 +47,7 @@
 
 ### Inputs
 
-- backend base URL from `GameData.api_url`
+- backend base URL from `AppConfig.backend_base_url()`
 - keyboard input in the word input field
 - submit button click or `text_submitted` event
 - timer ticks from the scene `Timer`
@@ -124,7 +124,7 @@ Then re-test play-again and return-to-hub while the tree is paused.
 - editing `GameNoiTu.gd` can break both gameplay and backend communication
 - editing scene node names can break `@onready` paths
 - editing `GameOver.gd` can break play-again or return-to-hub while paused
-- editing `GameData.api_url` affects this module immediately
+- editing `AppConfig` or `json_api_client.gd` affects this module immediately
 
 ## What To Test After Changes
 
