@@ -1,14 +1,15 @@
 extends Control
 
-@onready var label: Label = $Label
-@onready var title: Label = $Label2
-@onready var choice_box: HBoxContainer = $ChoiceBox
-@onready var selector: TextureRect = $Selector
-@onready var press_e_icon: TextureRect = $TextureRect2
+@onready var dialogue_box: Control = $DialogueBox
+@onready var label: Label = $DialogueBox/Label
+@onready var title: Label = $DialogueBox/Label2
+@onready var choice_box: HBoxContainer = $DialogueBox/ChoiceBox
+@onready var selector: TextureRect = $DialogueBox/Selector
+@onready var press_e_icon: TextureRect = $DialogueBox/TextureRect2
 @onready var buttons := [
-	$ChoiceBox/NoButton,
-	$ChoiceBox/AgainButton,
-	$ChoiceBox/YesButton
+	$DialogueBox/ChoiceBox/NoButton,
+	$DialogueBox/ChoiceBox/AgainButton,
+	$DialogueBox/ChoiceBox/YesButton
 ]
 
 @export var target_scene_path: String = "res://path/to/next_scene.tscn"
@@ -34,9 +35,9 @@ func _ready():
 	if player:
 		player.global_position = GameData.player_position
 		  # 🛠 Restore player position
-	$ChoiceBox/YesButton.pressed.connect(on_yes_selected)
-	$ChoiceBox/AgainButton.pressed.connect(on_again_selected)
-	$ChoiceBox/NoButton.pressed.connect(on_no_selected)
+	$DialogueBox/ChoiceBox/YesButton.pressed.connect(on_yes_selected)
+	$DialogueBox/ChoiceBox/AgainButton.pressed.connect(on_again_selected)
+	$DialogueBox/ChoiceBox/NoButton.pressed.connect(on_no_selected)
 
 func start_from_file(path: String):
 	var file := FileAccess.open(path, FileAccess.READ)
@@ -106,13 +107,14 @@ func update_selector_position():
 		return
 
 	var btn_rect: Rect2 = target_btn.get_global_rect()
+	var box_position := dialogue_box.global_position
 	var selector_size := selector.size
 	if selector_size == Vector2.ZERO:
 		selector_size = Vector2(48, 48)
 
-	selector.global_position = Vector2(
-		btn_rect.position.x - selector_size.x - 14,
-		btn_rect.position.y + (btn_rect.size.y - selector_size.y) * 0.5 + 45.0
+	selector.position = Vector2(
+		btn_rect.position.x - box_position.x - selector_size.x - 14,
+		btn_rect.position.y - box_position.y + (btn_rect.size.y - selector_size.y) * 0.5
 	)
 	selector.visible = true
 
@@ -186,7 +188,3 @@ func finish():
 	set_interact_hint_visible(false)
 	label.text = ""
 	title.text = ""
-
-
-	if Input.is_action_just_pressed("ui_cancel"):
-		emit_signal("dialogue_closed")

@@ -6,8 +6,8 @@ var selected_level
 
 func _ready():
 	$BotDescription.visible = false
-	$ConfirmButton.visible = false
-	$ConfirmButton.disabled = true
+	$ConfirmButton.visible = true
+	$ConfirmButton.disabled = false
 	$ConfirmButton.pressed.connect(_on_confirm_pressed)
 
 	for i in range(1, 6):
@@ -20,11 +20,11 @@ func _ready():
 
 func _get_bot_desc(level: int) -> String:
 	var descs = {
-		"1": "                  Lâm(Level 1)\n      Thích chơi đùa với quân cờ",
-		"2": "                  Mai(Level 2)\nLuôn sẵn sàng giúp đỡ người mới tập",
-		"3": "                  Hoàng(Level 3)\nRất háo hức học hỏi và cải thiện kỹ năng chơi cờ",
-		"4": "                  Nghị(Level 4)\nĐã học được nhiều nước đi thông minh.",
-		"5": "                  Trân(Level 5)\n                Đã chơi cờ 20 năm!"
+		"1": "Lâm(Level 1)\nThích chơi đùa với quân cờ",
+		"2": "Mai(Level 2)\nLuôn sẵn sàng giúp đỡ người mới tập",
+		"3": "Hoàng(Level 3)\nRất háo hức học hỏi và cải thiện kỹ năng chơi cờ",
+		"4": "Nghị(Level 4)\nĐã học được nhiều nước đi thông minh.",
+		"5": "Trân(Level 5)\nĐã chơi cờ 20 năm!"
 	}
 	return descs.get(str(level), "Không rõ cấp độ")
 
@@ -37,10 +37,13 @@ func _on_unhover():
 
 func _on_avatar_selected(btn):
 	selected_level = btn.get_meta("level")
-	$ConfirmButton.disabled = false
 	$ConfirmButton.visible = true
+	$ConfirmButton.disabled = false
 
 func _on_confirm_pressed():
-	if selected_level != null:
-		print("Đã chọn bot cấp độ:", selected_level)
-		bot_selected.emit(selected_level)
+	if selected_level == null:
+		$BotDescription.text = "Hãy chọn một bot trước"
+		$BotDescription.visible = true
+		return
+	print("Đã chọn bot cấp độ:", selected_level)
+	bot_selected.emit(selected_level)

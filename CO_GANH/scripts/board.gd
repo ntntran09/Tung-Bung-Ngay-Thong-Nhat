@@ -11,8 +11,8 @@ const PIECE_SCENE = preload("res://CO_GANH/scenes/Piece.tscn")
 const DOT_RED = preload("res://CO_GANH/assets/sprites/red_dot.png")
 const DOT_BLUE = preload("res://CO_GANH/assets/sprites/blue_dot.png")
 
-const BOT_AVATAR_POSITION := Vector2(1333, 250)
-const BOT_NAME_LABEL_OFFSET := Vector2(-45, 95)
+const BOT_AVATAR_POSITION := Vector2(1510, 250)
+const BOT_NAME_LABEL_OFFSET := Vector2(-70, 120)
 
 var current_turn := "Lua"
 var selected_piece: Area2D = null
@@ -47,8 +47,7 @@ var nuoc_one_piece_streak := 0
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	bot_select.play()
-	$GameOver_win/BG.visible = false
-	$GameOver_loss/BG.visible = false
+	hide_game_over_panels()
 	$main/Board.visible = false
 	$main/Pieces.visible = false
 	$main/move_hint.visible = false
@@ -63,6 +62,20 @@ func _ready():
 	$main.position = board_start_position
 	build_valid_moves()
 	draw_board()
+
+func hide_game_over_panels() -> void:
+	$GameOver_win.visible = false
+	$GameOver_win/BG.visible = false
+	$GameOver_loss.visible = false
+	$GameOver_loss/BG.visible = false
+
+func show_win_panel() -> void:
+	$GameOver_win.visible = true
+	$GameOver_win/BG.visible = true
+
+func show_loss_panel() -> void:
+	$GameOver_loss.visible = true
+	$GameOver_loss/BG.visible = true
 
 func _on_bot_selected(level: int):
 	print("🎮 Bắt đầu game với bot cấp:", level)
@@ -112,7 +125,7 @@ func show_bot_info(level: int):
 			avatar_path = "res://CO_GANH/assets/sprites/default_avatar.png"
 
 	bot_avatar.texture = load(avatar_path)
-	bot_avatar.scale = Vector2(2, 2)
+	bot_avatar.scale = Vector2(2.6, 2.6)
 	bot_avatar.position = BOT_AVATAR_POSITION
 	add_child(bot_avatar)
 
@@ -127,7 +140,7 @@ func show_bot_info(level: int):
 	var name = bot_names.get(level, "Unknown")
 	name_label.text = name + " (Level " + str(level) + ")"
 	name_label.set("theme_override_colors/font_color", Color.BLACK)
-	name_label.set("theme_override_font_sizes/font_size", 30)
+	name_label.set("theme_override_font_sizes/font_size", 36)
 	var custom_font = preload("res://_SHARED ASSETS/font/SVN-Retron 2000.otf")
 	name_label.set("theme_override_fonts/font", custom_font)
 
@@ -395,12 +408,12 @@ func check_game_over() -> bool:
 	if lua_one_piece_streak >= 16:
 		print("⚠️ Player chỉ còn 1 quân trong 8 lượt liên tiếp - kết thúc game")
 		sfx_loss.play()
-		$GameOver_loss/BG.visible = true
+		show_loss_panel()
 		return true
 	elif nuoc_one_piece_streak >= 10:
 		print("⚠️ Bot chỉ còn 1 quân trong 8 lượt liên tiếp - kết thúc game")
 		sfx_win.play()
-		$GameOver_win/BG.visible = true
+		show_win_panel()
 		return true
 
 	# 👉 Điều kiện thắng thông thường
@@ -414,10 +427,10 @@ func check_game_over() -> bool:
 		print("🎉 Bên thắng: ", winner)
 		if winner == "Lua":
 			sfx_win.play()
-			$GameOver_win/BG.visible = true
+			show_win_panel()
 		else:
 			sfx_loss.play()
-			$GameOver_loss/BG.visible = true
+			show_loss_panel()
 		return true
 
 	return false
@@ -483,7 +496,7 @@ func reset_game():
 func _on_bot_select_button_pressed():
 	print("🔁 Chơi lại với bot mạnh hơn...")
 
-	$GameOver_win/BG.visible = false
+	hide_game_over_panels()
 
 	var new_level = Bot.difficulty_level + 1
 	if new_level > 5:
@@ -494,7 +507,7 @@ func _on_bot_select_button_pressed():
 
 
 func _on_choilai_pressed() -> void:
-	$GameOver_loss/BG.visible = false
+	hide_game_over_panels()
 	reset_game()
 	
 func _on_mhchinh_pressed():

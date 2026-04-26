@@ -1,6 +1,6 @@
 extends Node
 
-const BASE_SIZE := Vector2i(1600, 900)
+const BASE_SIZE := Vector2i(1920, 1080)
 const MIN_SIZE := Vector2i(960, 540)
 
 func _enter_tree() -> void:

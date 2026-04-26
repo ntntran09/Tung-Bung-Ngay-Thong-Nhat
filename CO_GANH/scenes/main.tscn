@@ -441,12 +441,10 @@ sources/3 = SubResource("TileSetAtlasSource_tbgi4")
 
 [node name="Node" type="Node" unique_id=1333516078]
 script = ExtResource("1_jyhfs")
-board_start_position = Vector2(260, 135)
+board_start_position = Vector2(220, 90)
 
 [node name="BotSelectLayer" type="CanvasLayer" parent="." unique_id=1683610438]
 layer = 10
-scale = Vector2(2.5, 2.5)
-transform = Transform2D(2.5, 0, 0, 2.5, 0, 0)
 script = ExtResource("2_jscy8")
 
 [node name="Block" type="ColorRect" parent="BotSelectLayer" unique_id=1325904468]
@@ -459,80 +457,92 @@ color = Color(0.956863, 0.752941, 0.490196, 1)
 
 [node name="Ava1" type="TextureButton" parent="BotSelectLayer" unique_id=1786931853]
 z_index = 5
-offset_left = -8.0
-offset_top = 63.0
-offset_right = 120.0
-offset_bottom = 146.0
+offset_left = 360.0
+offset_top = 180.0
+offset_right = 640.0
+offset_bottom = 365.0
 texture_normal = ExtResource("3_pm3ni")
+stretch_mode = 3
 script = ExtResource("14_og1vs")
 
 [node name="Ava2" type="TextureButton" parent="BotSelectLayer" unique_id=217064753]
-offset_left = 256.0
-offset_top = 56.0
-offset_right = 384.0
-offset_bottom = 139.0
+offset_left = 820.0
+offset_top = 180.0
+offset_right = 1100.0
+offset_bottom = 365.0
 texture_normal = ExtResource("4_jbj1t")
+stretch_mode = 3
 flip_h = true
 script = ExtResource("14_og1vs")
 
 [node name="Ava3" type="TextureButton" parent="BotSelectLayer" unique_id=1768931709]
-offset_left = 496.0
-offset_top = 63.0
-offset_right = 624.0
-offset_bottom = 146.0
+offset_left = 1280.0
+offset_top = 180.0
+offset_right = 1560.0
+offset_bottom = 365.0
 texture_normal = ExtResource("7_y6deb")
+stretch_mode = 3
 flip_h = true
 script = ExtResource("14_og1vs")
 
 [node name="Ava4" type="TextureButton" parent="BotSelectLayer" unique_id=1096759184]
-offset_left = 120.0
-offset_top = 168.0
-offset_right = 248.0
-offset_bottom = 251.0
+offset_left = 590.0
+offset_top = 465.0
+offset_right = 870.0
+offset_bottom = 650.0
 texture_normal = ExtResource("9_yc10j")
+stretch_mode = 3
 flip_h = true
 script = ExtResource("14_og1vs")
 
 [node name="Ava5" type="TextureButton" parent="BotSelectLayer" unique_id=1689476612]
-offset_left = 384.0
-offset_top = 168.0
-offset_right = 512.0
-offset_bottom = 251.0
+offset_left = 1050.0
+offset_top = 465.0
+offset_right = 1330.0
+offset_bottom = 650.0
 texture_normal = ExtResource("6_0ld40")
+stretch_mode = 3
 flip_h = true
 script = ExtResource("14_og1vs")
 
 [node name="BotDescription" type="Label" parent="BotSelectLayer" unique_id=880206775]
-offset_left = 240.0
-offset_top = 256.0
-offset_right = 280.0
-offset_bottom = 279.0
+offset_left = 360.0
+offset_top = 690.0
+offset_right = 1560.0
+offset_bottom = 780.0
 theme_override_fonts/font = ExtResource("12_y6deb")
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 34
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ConfirmButton" type="TextureButton" parent="BotSelectLayer" unique_id=1146626944]
-offset_left = 256.0
-offset_top = 288.0
-offset_right = 1280.0
-offset_bottom = 1312.0
-scale = Vector2(0.121973, 0.082809)
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -144.0
+offset_top = 855.0
+offset_right = 92.0
+offset_bottom = 1040.0
 disabled = true
 texture_normal = ExtResource("13_y6deb")
+ignore_texture_size = true
+stretch_mode = 0
 script = ExtResource("14_og1vs")
 
 [node name="NhapNhay" type="Label" parent="BotSelectLayer" unique_id=1575305444]
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 48.0
-offset_bottom = 31.0
+offset_left = 80.0
+offset_top = 60.0
+offset_right = 860.0
+offset_bottom = 125.0
 theme_override_fonts/font = ExtResource("12_y6deb")
+theme_override_font_sizes/font_size = 42
 text = "- Chơi với bot (PVE)
 "
 script = ExtResource("4_a8y0u")
 
 [node name="main" type="Node2D" parent="." unique_id=870097369]
-position = Vector2(260, 135)
-scale = Vector2(2, 2)
+position = Vector2(220, 90)
+scale = Vector2(2.6, 2.6)
 
 [node name="Board" type="TileMapLayer" parent="main" unique_id=933434971]
 z_index = 1
@@ -583,85 +593,95 @@ volume_db = -4.0
 autoplay = true
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=350659949]
-offset_left = 939.0
-offset_top = -165.0
-offset_right = 1070.0
-offset_bottom = -132.0
+offset_left = 1110.0
+offset_top = -181.0
+offset_right = 1241.0
+offset_bottom = -148.0
 scale = Vector2(7.0179, 51.5327)
 color = Color(0.956863, 0.752941, 0.490196, 1)
 
 [node name="Player" type="Sprite2D" parent="." unique_id=21311594]
-position = Vector2(1373, 785)
-scale = Vector2(0.236026, 0.272085)
+position = Vector2(1510, 805)
+scale = Vector2(0.34, 0.39)
 texture = ExtResource("27_tel4y")
 
 [node name="Point" type="Sprite2D" parent="." unique_id=92714270]
 texture_filter = 2
-position = Vector2(1369, 581)
-scale = Vector2(0.320418, 0.28631)
+position = Vector2(1510, 560)
+scale = Vector2(0.45, 0.4)
 texture = ExtResource("28_2f3dj")
 script = ExtResource("29_yq6so")
 
 [node name="GameOver_win" type="Control" parent="." unique_id=77466170]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="BG" type="TextureRect" parent="GameOver_win" unique_id=1541655513]
 z_index = 100
-layout_mode = 0
-offset_right = 1834.0983
-offset_bottom = 1024.0
-scale = Vector2(0.878906, 0.878906)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("30_fv21b")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="BotSelectButton" type="Button" parent="GameOver_win/BG" unique_id=554137765]
 layout_mode = 0
-offset_left = 395.287
-offset_top = 752.678
-offset_right = 403.287
-offset_bottom = 760.678
-scale = Vector2(76.1403, 16.7933)
+offset_left = 615.0
+offset_top = 660.0
+offset_right = 1230.0
+offset_bottom = 795.0
 flat = true
 
 [node name="mhchinh" type="Button" parent="GameOver_win/BG" unique_id=111673340]
 layout_mode = 0
-offset_left = 350.478
-offset_top = 518.893
-offset_right = 358.478
-offset_bottom = 526.893
-scale = Vector2(88.239, 19.9277)
+offset_left = 640.0
+offset_top = 455.0
+offset_right = 1280.0
+offset_bottom = 595.0
 flat = true
 
 [node name="GameOver_loss" type="Control" parent="." unique_id=1438995543]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="BG" type="TextureRect" parent="GameOver_loss" unique_id=1364546165]
 z_index = 100
-layout_mode = 0
-offset_right = 1832.9604
-offset_bottom = 1024.0
-scale = Vector2(0.878906, 0.878906)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("31_tel4y")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="choilai" type="Button" parent="GameOver_loss/BG" unique_id=1884729735]
 layout_mode = 0
-offset_left = 524.703
-offset_top = 764.033
-offset_right = 532.703
-offset_bottom = 772.033
-scale = Vector2(59.9984, 19.5383)
+offset_left = 730.0
+offset_top = 670.0
+offset_right = 1210.0
+offset_bottom = 825.0
 flat = true
 
 [node name="mhchinh" type="Button" parent="GameOver_loss/BG" unique_id=1794543954]
 layout_mode = 0
-offset_left = 436.054
-offset_top = 535.68
-offset_right = 444.054
-offset_bottom = 543.68
-scale = Vector2(83.3332, 21.4333)
+offset_left = 665.0
+offset_top = 470.0
+offset_right = 1330.0
+offset_bottom = 620.0
 flat = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=776616031]
