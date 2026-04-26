@@ -10,7 +10,9 @@ func _ready():
 	quit_button.pressed.connect(on_quit_pressed)
 
 func on_play_again_pressed():
+	get_tree().paused = false
 	get_tree().change_scene_to_file("res://NOI_CHU/scenes/main.tscn")
 
 func on_quit_pressed():
+	get_tree().paused = false
 	get_tree().change_scene_to_file("res://MAIN/scenes/main.tscn")  

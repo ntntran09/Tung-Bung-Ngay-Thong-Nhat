@@ -76,17 +76,17 @@ Guidance:
 
 ## Current Repo-Specific Notes
 
-### Shared pause scene path text is stale in some scene headers
+### Shared pause scene path text
 
 The actual file on disk is:
 
 - `MAIN/scenes/ui/game_control.tscn`
 
-Some scene resources still record:
+Older scene resources in this repo used to record:
 
 - `res://MAIN/scenes/game_control.tscn`
 
-Godot can still resolve this via resource UID today, but the path text is stale and should not be copied into new work blindly.
+Do not copy that older path into new work; use the canonical `ui/` path.
 
 ### Dialogue files are part of export configuration
 

@@ -8,7 +8,7 @@
 
 - [../architecture.md](../architecture.md): scene flow and `SceneManager` autoload responsibilities.
 - [MAIN.md](MAIN.md): shared pause UI and hub-owned launch behavior.
-- [../repo-hygiene.md](../repo-hygiene.md): stale shared pause path text in some scene headers.
+- [../repo-hygiene.md](../repo-hygiene.md): shared pause scene guidance.
 - [../runbooks/manual-smoke-test.md](../runbooks/manual-smoke-test.md): O An Quan smoke checks.
 
 ## What This Module Is Responsible For
@@ -94,9 +94,7 @@ The following node layout is currently coupled to code:
 
 ### Shared pause UI is imported from `MAIN`
 
-`O_AN_QUAN` scenes use the shared pause-menu scene by resource UID. The scene headers still show `res://MAIN/scenes/game_control.tscn`, while the file on disk is `MAIN/scenes/ui/game_control.tscn`.
-
-Treat that as stale path text, not a sign that there are two pause scenes.
+`O_AN_QUAN` scenes use the shared pause-menu scene from `MAIN/scenes/ui/game_control.tscn`.
 
 ## Common Workflows
 

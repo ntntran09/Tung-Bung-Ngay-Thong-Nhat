@@ -211,14 +211,14 @@ That means the repo has both local-only gameplay paths and backend-dependent gam
 
 - `_SHARED ASSETS/font/*.tres` are reused across modules.
 - The shared pause implementation lives in `MAIN/script/game_control.gd` and `MAIN/scenes/ui/game_control.tscn`.
-- `NOI_CHU` uses `MAIN/scenes/ui/game_control.tscn` directly, `O_AN_QUAN` uses the same scene by UID with stale path text in scene headers, and `CO_GANH` plus `TRON_TIM` embed the same pause script and assets directly in their scenes.
+- `NOI_CHU` and `O_AN_QUAN` use `MAIN/scenes/ui/game_control.tscn` directly, while `CO_GANH` and `TRON_TIM` embed the same pause script and assets directly in their scenes.
 
 ## Current Limitations And Risks
 
 - No automated tests are visible; verification is manual.
 - Backend-dependent behavior has no documented environment switch or retry strategy.
 - Scene-template defaults are not always authoritative; parent-scene instance overrides often define the real behavior.
-- Some scene resources still contain stale path text even when UIDs still resolve.
+- Some older scene resources may contain stale path text even when UIDs still resolve.
 - The repo tracks multiple `*.tmp` Godot scene backups, which are not reliable sources of truth.
 
 ## Change Impact Notes

@@ -33,6 +33,8 @@ var dialogue_file_path := ""
 func _ready():
 
 	dialogue_file_path = "res://MAIN/dialogues/" + input_file
+	text = get_fallback_text()
+	api.timeout = 8.0
 
 	# --- Patrol setup ---
 	if patrol_parent_path.is_empty():
@@ -192,18 +194,23 @@ func _input(event: InputEvent):
 					await start_close_cooldown()
 		else:
 			if dialogue_box.has_method("start_from_text"):
-				var reached_end = dialogue_box.start_from_text(text)
+				if text.strip_edges().is_empty():
+					text = get_fallback_text()
+				dialogue_box.start_from_text(text)
 
 func _reset_conver():
 	while GameData.is_dialogue_open and is_player_inside:
 		await get_tree().create_timer(1).timeout
+	text = get_fallback_text()
 	var file := FileAccess.open(dialogue_file_path, FileAccess.READ)
+	var file_text := ""
 	if file:
+		file_text = file.get_as_text()
 		file.close()
 	else:
 		push_error("❌ Failed to load dialogue file: " + dialogue_file_path)
 		return
-	api_call("/npc/npc_intro", {"npc_background": file}, func(res):
+	api_call("/npc/npc_intro", {"npc_background": file_text}, func(res):
 		print(res)
 		if res.has("status") and res["status"] == "success" and res.has("reply"):
 			text = npc_name + '\n' + res["reply"] 
@@ -213,6 +220,13 @@ func _reset_conver():
 	)
 	
 	
+func get_fallback_text() -> String:
+	var display_name := npc_name.strip_edges()
+	if display_name.is_empty():
+		display_name = "NPC"
+	return display_name + "\nChuc ban ngay vui ve!"
+
+
 func _on_Area3D_body_entered(body: Node):
 	if body.is_in_group("player"):
 		is_player_inside = true
@@ -247,9 +261,10 @@ func start_dialogue_cooldown():
 	print("🕓 Dialogue cooldown ended")
 	
 func face_player():
-	var player = get_tree().get_nodes_in_group("player").front()
-	if not player:
+	var players = get_tree().get_nodes_in_group("player")
+	if players.is_empty():
 		return
+	var player = players.front()
 
 	var to_player = (player.global_position - global_position).normalized()
 	var angle = atan2(-to_player.x, -to_player.z)

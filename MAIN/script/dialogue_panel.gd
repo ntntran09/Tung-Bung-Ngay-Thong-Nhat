@@ -63,7 +63,10 @@ func start_dialogue():
 	if lines.size() > 0:
 		title.text = lines[current_line]
 		current_line += 1
-		show_line()
+		if current_line < lines.size():
+			show_line()
+		else:
+			show_choices()
 
 func advance():
 	if not is_playing:
@@ -78,7 +81,8 @@ func advance():
 		return true
 
 func show_line():
-	label.text = lines[current_line]
+	if current_line < lines.size():
+		label.text = lines[current_line]
 
 func show_choices():
 	print("Showing choices")
@@ -87,17 +91,8 @@ func show_choices():
 	choice_box.visible = true
 
 	selected_index = 2
-	selector.global_position = Vector2(1073, 976)
-
 	selector.visible = true
-
-	
-
-	print("Choice box visible: ", choice_box.visible)
-	print("Selector visible: ", selector.visible)
-	print("Selector texture: ", selector.texture)
-	print("Selector size: ", selector.size)
-	print("Selector position: ", selector.position)
+	call_deferred("update_selector_position")
 
 func update_selector_position():
 	var target_btn = buttons[selected_index]
@@ -123,10 +118,10 @@ func _input(event: InputEvent):
 	if not visible or not choice_active:
 		return
 		
-	if event.is_action_pressed("walk_right") or event.is_action_pressed("ui_left"):
+	if event.is_action_pressed("walk_right") or event.is_action_pressed("ui_right"):
 		selected_index = (selected_index + 1) % buttons.size()
 		update_selector_position()
-	elif event.is_action_pressed("walk_left") or event.is_action_pressed("ui_right"):
+	elif event.is_action_pressed("walk_left") or event.is_action_pressed("ui_left"):
 		selected_index = (selected_index - 1) % buttons.size()
 		update_selector_position()
 	elif event.is_action_pressed("interact"):
@@ -143,33 +138,21 @@ func on_yes_selected():
 	print("🟢 YES selected → changing scene to: ", target_scene_path)
 	
 	# 1. Save player position before changing scene
-	GameData.player_position = player.global_position
+	if player:
+		GameData.player_position = player.global_position
 	
 	# 2. Finish dialogue or pause menu
 	finish()
 
 	# 3. Change to the new scene
-	get_tree().change_scene_to_file(target_scene_path)
+	var err = get_tree().change_scene_to_file(target_scene_path)
+	if err != OK:
+		push_error("Failed to change scene to: " + target_scene_path)
 
 
 func on_again_selected():
 	print("🔁 AGAIN selected → restarting dialogue")
-	var player = get_tree().get_first_node_in_group("player")
-	if player:
-		player.can_move = false
-	
-	current_line = -1
-	is_playing = true
-	choice_active = false
-	visible = true
-	choice_box.visible = false
-	selected_index = 2
-	update_selector_position()
-	selector.visible = false
-
-	if lines.size() > 0:
-		current_line += 1
-		show_line()
+	start_dialogue()
 
 func on_no_selected():
 	print("❌ NO selected → closing dialogue")
@@ -185,7 +168,6 @@ func finish():
 	choice_active = false
 	visible = false
 	selected_index = 2
-	selector.global_position = Vector2(1073, 976)
 	choice_box.visible = false
 	selector.visible = false
 	label.text = ""

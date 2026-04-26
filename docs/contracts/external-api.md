@@ -37,14 +37,14 @@ This document does not duplicate the literal host because the value is likely to
 - empty body `{}` -> sends a `GET`
 - non-empty body -> sends a `POST` with JSON
 - expects a single response per request
-- no retry or timeout handling is implemented in the current code
+- uses an HTTP timeout and routes bad responses to the in-game game-over/error path
 
 ### `MAIN/script/npc.gd`
 
 - guards against overlapping requests with `is_requesting`
 - sends `POST` when body is non-empty
 - stores a callback and invokes it on `200` responses
-- does not define retry or timeout behavior
+- uses a timeout and keeps local fallback text available if the backend response is unusable
 
 ## Endpoint Contracts
 
@@ -175,15 +175,13 @@ This document does not duplicate the literal host because the value is likely to
 
 #### Current request body in code
 
-Conceptually, the request is supposed to send NPC background material derived from a local text file. The current implementation opens the file, closes it, and then sends:
+The request sends NPC background material read from the local dialogue/background text file:
 
 ```json
 {
-  "npc_background": "<FileAccess object in current code path>"
+  "npc_background": "<local NPC background text>"
 }
 ```
-
-That is an implementation quirk worth preserving in docs because the code does not currently send file text directly.
 
 #### Expected response fields
 
@@ -201,21 +199,21 @@ That is an implementation quirk worth preserving in docs because the code does n
 
 ### `NOI_CHU`
 
-- non-`200` responses trigger `game_over("Loi ket noi server")`
+- non-`200` responses trigger the in-game connection-error path
 - missing required fields also end the game
 - the game has no documented offline fallback mode
 
 ### Hub NPCs
 
-- if the local text file cannot be opened, the NPC script raises an error and stops
-- if the backend responds without the expected success shape, the script uses a generic fallback line
+- if the local text file cannot be opened, the NPC script raises an error and keeps its generic fallback text
+- if the backend is unavailable or responds without the expected success shape, the script uses a generic fallback line
 
 ## Compatibility Risks
 
 - The backend contract is implicit and not schema-validated.
 - The base URL is hard-coded, not environment-configured.
 - `NOI_CHU` assumes exact field names and does not tolerate alternate response shapes.
-- `MAIN/script/npc.gd` appears to send a `FileAccess` object rather than the file text itself.
+- `MAIN/script/npc.gd` uses the same request field for backend-generated text and falls back locally when the response is unusable.
 
 ## Validation Checklist
 

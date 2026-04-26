@@ -41,4 +41,8 @@ func _on_resume():
 	hide_menu()
 
 func _on_quit():
+	get_tree().paused = false
+	menu.visible = false
+	pause_button.visible = true
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	get_tree().change_scene_to_file("res://MAIN/scenes/main.tscn")

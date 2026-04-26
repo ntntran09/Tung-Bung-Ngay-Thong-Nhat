@@ -16,4 +16,5 @@ func _on_level_pressed(level: String):
 
 func _on_exit_pressed():
 	sound.play()
-	get_tree().quit()
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://MAIN/scenes/main.tscn")
