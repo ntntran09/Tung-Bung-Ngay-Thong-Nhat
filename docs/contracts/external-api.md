@@ -195,6 +195,7 @@ The request sends NPC background material read from the local dialogue/backgroun
 - if `status == "success"` and `reply` exists, the client shows:
   - line 1: NPC name
   - following text: backend reply
+- if `reply` is empty or contains a backend/Gemini error marker, the client ignores it and falls back locally
 - otherwise, the client falls back to a generic greeting using the NPC name
 
 ## Failure Behavior
@@ -209,6 +210,7 @@ The request sends NPC background material read from the local dialogue/backgroun
 
 - if the local text file cannot be opened, the NPC script raises an error and keeps its generic fallback text
 - if the backend is unavailable or responds without the expected success shape, the script uses a generic fallback line
+- if the backend returns HTTP 200 with `status == "success"` but places an internal Gemini error in `reply`, the script treats that reply as unusable and falls back locally
 
 ## Compatibility Risks
 

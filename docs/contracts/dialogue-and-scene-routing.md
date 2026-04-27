@@ -141,7 +141,7 @@ Used only for hub return placement after leaving via stall-owner dialogue.
 - Missing `input_file` or bad file path: scripts call `push_error()` and dialogue fails to load.
 - Bad `target_scene_path`: `Yes` is blocked by `SceneRoutes.is_valid_scene()` and a Godot error is pushed.
 - Missing instance overrides in `MAIN/scenes/main.tscn`: the reusable scene defaults may be incorrect or placeholder values.
-- Backend failure for roaming NPCs: current code falls back to a generic greeting if the response is not a `success` reply.
+- Backend failure for roaming NPCs: current code falls back to a generic greeting if the response is not a `success` reply or if the backend puts an internal Gemini error in `reply`.
 
 ## Compatibility Risks
 

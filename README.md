@@ -1,32 +1,38 @@
 # Folk Games Collection
 
-## What This Repo Is
+**Folk Games Collection** is a browser-playable Godot game that brings several Vietnamese folk-inspired mini-games into one shared festival hub.
 
-`folk-games-collection` is a Godot project that bundles a festival-style hub with four mini-games:
+Play now on itch.io: [https://hoangphann.itch.io/folk-games-collection](https://hoangphann.itch.io/folk-games-collection)
 
-- `CO_GANH`
-- `NOI_CHU`
-- `O_AN_QUAN`
-- `TRON_TIM`
+![Folk Games Collection cover](screenshots/cover.jpg)
 
-The runtime starts in `MAIN/scenes/start.tscn`, moves into the 3D hub in `MAIN/scenes/main.tscn`, and launches the mini-games from stall-owner interactions in the hub.
+## About
 
-## Quick Start
+Walk through a festival-style 3D hub, talk to characters, and launch different mini-games from the stalls. The collection mixes board-game strategy, word play, and stealth-style challenges in one project.
 
-1. Install Godot `4.6` or a compatible `4.x` build.
-2. Import `project.godot` from the repo root.
-3. Wait for Godot to finish asset import.
-4. Run the project with `F5`.
+Included mini-games:
 
-For the full import workflow and common setup problems, see [docs/import-and-run-godot.md](docs/import-and-run-godot.md).
+- **Co Ganh**: a Vietnamese strategy board game with bot difficulty selection.
+- **Noi Chu**: a word-chain game backed by HTTP API responses.
+- **O An Quan**: a traditional board game with difficulty-based AI.
+- **Tron Tim**: a multi-level hide-and-seek / stealth challenge.
 
-## Automated Preflight
+## Screenshots
 
-Run the headless validation script after refactors that touch autoloads, routes, dialogue files, or API configuration:
+<p align="center">
+  <img src="screenshots/1.jpg" width="45%" alt="Festival hub gameplay" />
+  <img src="screenshots/2.jpg" width="45%" alt="Hub dialogue scene" />
+</p>
 
-```powershell
-& 'D:\Code\HCMUS\Godot_v4.6.2\Godot_v4.6.2-stable_win64_console.exe' --headless --path 'D:\Code\HCMUS\folk-games-collection' --script 'res://tools/validate_project.gd'
-```
+<p align="center">
+  <img src="screenshots/6.jpg" width="45%" alt="Co Ganh gameplay" />
+  <img src="screenshots/7.jpg" width="45%" alt="O An Quan gameplay" />
+</p>
+
+<p align="center">
+  <img src="screenshots/8.jpg" width="45%" alt="Noi Chu gameplay" />
+  <img src="screenshots/9.jpg" width="45%" alt="Tron Tim gameplay" />
+</p>
 
 ## Controls
 
@@ -34,6 +40,40 @@ Run the headless validation script after refactors that touch autoloads, routes,
 - `Shift`: run
 - `E` or `Enter`: interact
 - `Esc`: pause or close supported menus
+
+## Run Locally
+
+1. Install Godot `4.6` or a compatible `4.x` build.
+2. Import `project.godot` from the repo root.
+3. Wait for Godot to finish asset import.
+4. Run the project with `F5`.
+
+For setup details and troubleshooting, see [docs/import-and-run-godot.md](docs/import-and-run-godot.md).
+
+## Backend Configuration
+
+Some hub NPC dialogue and all of `NOI_CHU` depend on an HTTP backend.
+
+Set the backend URL in Godot:
+
+```text
+Project Settings > application/config/backend_base_url
+```
+
+For deployed web builds, use an HTTPS backend URL and make sure the backend allows browser requests from the itch.io-hosted game.
+
+## Export
+
+The web export preset is configured in `export_presets.cfg`.
+
+Typical release flow:
+
+1. Set `application/config/backend_base_url` if API-dependent gameplay should work online.
+2. Export preset `Web 2` to `EXPORT/index.html`.
+3. Zip the contents of `EXPORT/` so `index.html` is at the root of the zip.
+4. Upload the zip to itch.io as an HTML/browser game.
+
+See [docs/refactors/refactor-verification.md](docs/refactors/refactor-verification.md) for the current export and verification notes.
 
 ## Repository Layout
 
@@ -43,24 +83,12 @@ Run the headless validation script after refactors that touch autoloads, routes,
 - `O_AN_QUAN/`: O An Quan board game with difficulty selection and AI settings.
 - `TRON_TIM/`: multi-level stealth/avoidance module with unlock progression.
 - `_SHARED ASSETS/`: shared font resources.
-- `docs/`: architecture, contracts, runbooks, and module docs.
-
-## Runtime Summary
-
-- `project.godot` autoloads shared config/routing helpers plus three gameplay state singletons:
-  - `AppConfig` -> `MAIN/script/app_config.gd`
-  - `SceneRoutes` -> `MAIN/script/scene_routes.gd`
-  - `DebugLog` -> `MAIN/script/debug_log.gd`
-  - `GameData` -> `MAIN/script/game_data.gd`
-  - `SceneManager` -> `O_AN_QUAN/scripts/SceneManager.gd`
-  - `Global` -> `TRON_TIM/scripts/Global.gd`
-- Stall-owner dialogue in the hub launches mini-game scenes.
-- Returning to the hub relies on a mix of shared pause UI and module-specific end scenes.
-- Some hub NPC dialogue and all of `NOI_CHU` depend on the backend URL configured through `application/config/backend_base_url` in `project.godot`.
+- `docs/`: architecture, contracts, runbooks, module docs, and refactor notes.
+- `screenshots/`: README and itch.io page images.
 
 ## Documentation Map
 
-Use `docs/architecture.md` as the canonical runtime map, the contract docs as the canonical interface references, and `docs/runbooks/manual-smoke-test.md` as the current regression checklist.
+Use [docs/architecture.md](docs/architecture.md) as the canonical runtime map, the contract docs as interface references, and [docs/runbooks/manual-smoke-test.md](docs/runbooks/manual-smoke-test.md) as the regression checklist.
 
 - [docs/import-and-run-godot.md](docs/import-and-run-godot.md): import, run, and debug workflow.
 - [docs/architecture.md](docs/architecture.md): scene flow, module boundaries, and autoload responsibilities.
@@ -68,17 +96,15 @@ Use `docs/architecture.md` as the canonical runtime map, the contract docs as th
 - [docs/contracts/external-api.md](docs/contracts/external-api.md): HTTP endpoints used by `MAIN` and `NOI_CHU`.
 - [docs/refactors/technical-debt-refactor.md](docs/refactors/technical-debt-refactor.md): full description of the config, routing, API, module, and hygiene refactor.
 - [docs/refactors/refactor-verification.md](docs/refactors/refactor-verification.md): focused verification checklist for the refactor.
-- [docs/runbooks/manual-smoke-test.md](docs/runbooks/manual-smoke-test.md): current regression checklist.
 - [docs/modules/MAIN.md](docs/modules/MAIN.md): module guide for the hub and shared UI.
 - [docs/modules/CO_GANH.md](docs/modules/CO_GANH.md): module guide for Co Ganh.
 - [docs/modules/NOI_CHU.md](docs/modules/NOI_CHU.md): module guide for Noi Chu.
 - [docs/modules/O_AN_QUAN.md](docs/modules/O_AN_QUAN.md): module guide for O An Quan.
 - [docs/modules/TRON_TIM.md](docs/modules/TRON_TIM.md): module guide for Tron Tim.
 - [docs/repo-hygiene.md](docs/repo-hygiene.md): generated files, exports, and commit hygiene.
-- [AGENTS.md](AGENTS.md): coding-agent guide for safe changes.
 
 ## Known Constraints
 
-- No automated tests or CI are visible in this repo.
-- `NOI_CHU` and dynamic NPC dialogue in `MAIN` depend on a live HTTP backend.
-- Some Godot resource headers still carry older path text even when the UID still resolves; see [docs/repo-hygiene.md](docs/repo-hygiene.md).
+- The project has a validation script and manual smoke-test runbook, but no full automated gameplay test suite.
+- `NOI_CHU` and dynamic NPC dialogue need a reachable backend for normal API-dependent play.
+- Tron Tim progression is currently in-memory only and resets after restarting the app.

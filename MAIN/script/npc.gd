@@ -212,10 +212,19 @@ func _on_npc_intro_response(result: Dictionary) -> void:
 		return
 
 	var data: Dictionary = result["data"]
-	if data.has("status") and data["status"] == "success" and data.has("reply"):
-		text = npc_name + "\n" + str(data["reply"])
+	var reply := str(data.get("reply", "")).strip_edges()
+	if data.get("status", "") == "success" and _is_usable_npc_reply(reply):
+		text = npc_name + "\n" + reply
 	else:
+		DebugLog.value("NPC intro returned unusable response: ", data)
 		text = get_fallback_text()
+
+func _is_usable_npc_reply(reply: String) -> bool:
+	if reply.is_empty():
+		return false
+
+	var lowered := reply.to_lower()
+	return lowered.find("gemini") == -1 and lowered.find("httpstatuserror") == -1
 
 func get_fallback_text() -> String:
 	var display_name := npc_name.strip_edges()
